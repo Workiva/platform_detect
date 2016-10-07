@@ -13,6 +13,7 @@ dependencies:
   pub_semver: ^1.0.0
 
 dev_dependencies:
+  dartdoc: ^0.9.7
   dart_style: 0.2.10
   coverage: ^0.7.9
   browser: any

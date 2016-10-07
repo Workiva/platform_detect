@@ -6,14 +6,16 @@ A library for detecting browser and platform type and version.
 
 A simple usage example:
 
-    import 'package:platform_detect/platform_detect.dart';
+```dart
+import 'package:platform_detect/platform_detect.dart';
 
-    main() {
-      var awesome = new Awesome();
-    }
-
-## Features and bugs
-
-Please file feature requests and bugs at the [issue tracker][tracker].
-
-[tracker]: http://example.com/issues/replaceme
+main() {
+  if (browser.isChrome) {
+	print('thank you for being a friend');
+  }
+  
+  if (operatingSystem.isMac) {
+	print('');
+  }
+}
+```
