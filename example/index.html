@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Platform Detect example</title>
+</head>
+<body>
+
+<div>
+	<h1>Current platform</h1>
+	<h2>Your Browser: <span id="current-browser"></span></h2>
+	<ul>
+		<li><label>vendor: <span id="current-vendor"></span></label></li>
+		<li><label>appVersion: <span id="current-appVersion"></span></label></li>
+		<li><label>appName: <span id="current-appName"></span></label></li>
+		<li><label>userAgent: <span id="current-userAgent"></span></label></li>
+		<li><input type="checkbox" disabled="true" id="current-is-chrome"> Is Chrome</li>
+		<li><input type="checkbox" disabled="true" id="current-is-firefox"> Is Firefox</li>
+		<li><input type="checkbox" disabled="true" id="current-is-ie"> Is Internet Explorer</li>
+		<li><input type="checkbox" disabled="true" id="current-is-safari"> Is Safari</li>
+	</ul>
+
+	<div>
+		Version: <span id="current-version"></span>
+	</div>
+	<h2>Your Operating System: <span id="current-os"></span></h2>
+
+	<h1>Test other values</h1>
+	<table>
+		<tr>
+			<td>vendor</td>
+			<td><input id="test-vendor" style="width: 400px"/></td>
+		</tr>
+		<tr>
+			<td>appVersion</td>
+			<td><input id="test-appVersion" style="width: 400px"/></td>
+		</tr>
+		<tr>
+			<td>appName</td>
+			<td><input id="test-appName" style="width: 400px"/></td>
+		</tr>
+		<tr>
+			<td>userAgent</td>
+			<td><input id="test-userAgent" style="width: 400px"/></td>
+		</tr>
+	</table>
+	<button id="evaluate-test">Evaluate Test Values</button>
+	<h2>Evaluates to:</h2>
+	<ul>
+		<li><label>Browser: <span id="test-browser-name"></span></label></li>
+		<li><label>Version: <span id="test-browser-version"></span></label></li>
+		<li><label>Operating System: <span id="test-os-name"></span></label></li>
+	</ul>
+</div>
+
+<script type="application/dart" src="main.dart"></script>
+<script src="/packages/browser/dart.js"></script>
+</body>
+</html>
