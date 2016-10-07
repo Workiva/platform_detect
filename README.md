@@ -1,3 +1,5 @@
+[![codecov](https://codecov.workiva.net/gh/Workiva/platform_detect/branch/master/graph/badge.svg?token=BF7AmHyx4L)](https://codecov.workiva.net/gh/Workiva/platform_detect)
+
 # platform_detect
 
 A library for detecting browser and platform type and version.

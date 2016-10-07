@@ -1,6 +1,9 @@
 project: dart
 language: dart
 
+env:
+  - CODECOV_TOKEN='ba029200-53f5-4804-87b4-261d4fac4479'
+
 # dart 1.19.1, built from https://github.com/Workiva/smithy-runner-dart/tree/0.0.4
 runner_image: drydock-prod.workiva.org/workiva/smithy-runner-dart:74173
 
@@ -9,11 +12,13 @@ script:
   - pub run dart_dev format --check
   - pub run dart_dev analyze
   - pub run dart_dev test
+  - xvfb-run pub run dart_dev coverage --no-html
 
 after_script:
   - pub run dart_dev docs --no-open
   - cd doc/api && tar -zcvf api.tar.gz * && cd ../..
   - tar czvf platform_detect.pub.tgz LICENSE README.md pubspec.yaml lib/
+  - ./tool/codecov.sh
 
 artifacts:
   build:
