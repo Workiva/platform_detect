@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Platform Detect example</title>
+</head>
+<body>
+
+<div>
+	<h1>Your Browser: <span id="current-browser"></span></h1>
+	<ul>
+		<li><label>vendor: <span id="current-vendor"></span></label></li>
+		<li><label>appVersion: <span id="current-appVersion"></span></label></li>
+		<li><label>appName: <span id="current-appName"></span></label></li>
+		<li><label>userAgent: <span id="current-userAgent"></span></label></li>
+		<li><input type="checkbox" disabled="true" id="current-is-chrome"> Is Chrome</li>
+		<li><input type="checkbox" disabled="true" id="current-is-firefox"> Is Firefox</li>
+		<li><input type="checkbox" disabled="true" id="current-is-ie"> Is Internet Explorer</li>
+		<li><input type="checkbox" disabled="true" id="current-is-safari"> Is Safari</li>
+	</ul>
+
+	<div>
+		Version: <span id="current-version"></span>
+	</div>
+	<h1>Your Operating System: <span id="current-os"></span></h1>
+</div>
+
+<script type="application/dart" src="main.dart"></script>
+<script src="/packages/browser/dart.js"></script>
+</body>
+</html>

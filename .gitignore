@@ -1,0 +1,13 @@
+# Files and directories created by pub
+.packages
+.pub/
+build/
+coverage/
+packages
+pubspec.lock
+
+# Directory created by dartdoc
+doc/api/
+
+# JetBrains IDEs
+.idea/
