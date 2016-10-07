@@ -18,7 +18,7 @@ after_script:
   - pub run dart_dev docs --no-open
   - cd doc/api && tar -zcvf api.tar.gz * && cd ../..
   - tar czvf platform_detect.pub.tgz LICENSE README.md pubspec.yaml lib/
-  - tool/codecov.sh
+  - ./tool/codecov.sh
 
 artifacts:
   build:
