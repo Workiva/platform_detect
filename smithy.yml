@@ -12,7 +12,7 @@ script:
   - pub run dart_dev format --check
   - pub run dart_dev analyze
   - pub run dart_dev test
-  - pub run dart_dev coverage --no-html &> cov.out
+  - xvfb-run pub run dart_dev coverage --no-html
 
 after_script:
   - pub run dart_dev docs --no-open
