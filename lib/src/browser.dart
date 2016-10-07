@@ -49,11 +49,22 @@ class Browser {
   bool get isFirefox => this == _firefox;
   bool get isSafari => this == _safari;
   bool get isInternetExplorer => this == _internetExplorer;
+}
 
-  static Browser _chrome = new Browser('Chrome', (NavigatorProvider navigator) {
+Browser _chrome = new _Chrome();
+Browser _firefox = new _Firefox();
+Browser _safari = new _Safari();
+Browser _internetExplorer = new _InternetExplorer();
+
+class _Chrome extends Browser {
+  _Chrome() : super('Chrome', _isChrome, _getVersion);
+
+  static bool _isChrome(NavigatorProvider navigator) {
     var vendor = navigator.vendor;
     return vendor != null && vendor.contains('Google');
-  }, (NavigatorProvider navigator) {
+  }
+
+  static Version _getVersion(NavigatorProvider navigator) {
     Match match = new RegExp(r"Chrome/(\d+)\.(\d+)\.(\d+)\.(\d+)\s")
         .firstMatch(navigator.appVersion);
     var major = int.parse(match.group(1));
@@ -61,36 +72,53 @@ class Browser {
     var patch = int.parse(match.group(3));
     var build = match.group(4);
     return new Version(major, minor, patch, build: build);
-  });
+  }
+}
 
-  static Browser _firefox =
-      new Browser('Firefox', (NavigatorProvider navigator) {
+class _Firefox extends Browser {
+  _Firefox() : super('Firefox', _isFirefox, _getVersion);
+
+  static bool _isFirefox(NavigatorProvider navigator) {
     return navigator.userAgent.contains('Firefox');
-  }, (NavigatorProvider navigator) {
+  }
+
+  static Version _getVersion(NavigatorProvider navigator) {
     Match match =
         new RegExp(r'rv:(\d+)\.(\d+)\)').firstMatch(navigator.userAgent);
     var major = int.parse(match.group(1));
     var minor = int.parse(match.group(2));
     return new Version(major, minor, 0);
-  });
+  }
+}
 
-  static Browser _safari = new Browser('Safari', (NavigatorProvider navigator) {
+class _Safari extends Browser {
+  _Safari() : super('Safari', _isSafari, _getVersion);
+
+  static bool _isSafari(NavigatorProvider navigator) {
     return navigator.vendor.contains('Apple');
-  }, (NavigatorProvider navigator) {
+  }
+
+  static Version _getVersion(NavigatorProvider navigator) {
     Match match = new RegExp(r'Version/(\d+)\.(\d+)\.(\d+)')
         .firstMatch(navigator.appVersion);
     var major = int.parse(match.group(1));
     var minor = int.parse(match.group(2));
     var patch = int.parse(match.group(3));
     return new Version(major, minor, patch);
-  });
+  }
+}
 
-  static Browser _internetExplorer =
-      new Browser('Internet Explorer', (NavigatorProvider navigator) {
+class _InternetExplorer extends Browser {
+  _InternetExplorer()
+      : super('Internet Explorer', _isInternetExplorer, _getVersion);
+
+  static bool _isInternetExplorer(NavigatorProvider navigator) {
     return navigator.appName.contains('Microsoft') ||
         navigator.appVersion.contains('Trident') ||
         navigator.appVersion.contains('Edge');
-  }, (NavigatorProvider navigator) {
+  }
+
+  static Version _getVersion(NavigatorProvider navigator) {
     Match match =
         new RegExp(r'MSIE (\d+)\.(\d+);').firstMatch(navigator.appVersion);
     if (match != null) {
@@ -114,5 +142,5 @@ class Browser {
     }
 
     return new Version(0, 0, 0);
-  });
+  }
 }
