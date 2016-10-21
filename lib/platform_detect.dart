@@ -9,6 +9,9 @@ import 'package:platform_detect/src/browser.dart';
 import 'package:platform_detect/src/navigator.dart';
 import 'package:platform_detect/src/operating_system.dart';
 
+export 'src/browser.dart';
+export 'src/operating_system.dart';
+
 Browser _browser;
 
 /// Current browser info
