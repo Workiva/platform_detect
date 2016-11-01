@@ -95,7 +95,8 @@ class _Safari extends Browser {
   _Safari() : super('Safari', _isSafari, _getVersion);
 
   static bool _isSafari(NavigatorProvider navigator) {
-    return navigator.vendor.contains('Apple');
+    // An web view running in an iOS app does not have a 'Version/X.X.X' in the appVersion
+    return navigator.vendor.contains('Apple') && navigator.appVersion.contains('Version');
   }
 
   static Version _getVersion(NavigatorProvider navigator) {
