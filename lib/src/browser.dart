@@ -99,8 +99,8 @@ class _Safari extends Browser {
 
   static bool _isSafari(NavigatorProvider navigator) {
     // An web view running in an iOS app does not have a 'Version/X.X.X' string in the appVersion
-    return navigator.vendor.contains('Apple') &&
-        navigator.appVersion.contains('Version');
+    var vendor = navigator.vendor;
+    return vendor != null && vendor.contains('Apple') && navigator.appVersion.contains('Version');
   }
 
   static Version _getVersion(NavigatorProvider navigator) {
@@ -118,8 +118,8 @@ class _WKWebView extends Browser {
 
   static bool _isWKWebView(NavigatorProvider navigator) {
     // An web view running in an iOS app does not have a 'Version/X.X.X' string in the appVersion
-    return navigator.vendor.contains('Apple') &&
-        !navigator.appVersion.contains('Version');
+    var vendor = navigator.vendor;
+    return vendor != null && vendor.contains('Apple') && !navigator.appVersion.contains('Version');
   }
 
   static Version _getVersion(NavigatorProvider navigator) {

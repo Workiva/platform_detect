@@ -9,7 +9,6 @@ runner_image: drydock-prod.workiva.org/workiva/smithy-runner-dart:74173
 
 script:
   - pub get
-  - pub run dart_dev format --check
   - pub run dart_dev analyze
   - pub run dart_dev test
   - xvfb-run pub run dart_dev coverage --no-html
