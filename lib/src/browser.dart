@@ -42,19 +42,22 @@ class Browser {
     _chrome,
     _firefox,
     _safari,
-    _internetExplorer
+    _internetExplorer,
+    _wkWebView
   ];
 
   bool get isChrome => this == _chrome;
   bool get isFirefox => this == _firefox;
   bool get isSafari => this == _safari;
   bool get isInternetExplorer => this == _internetExplorer;
+  bool get isWKWebView => this == _wkWebView;
 }
 
 Browser _chrome = new _Chrome();
 Browser _firefox = new _Firefox();
 Browser _safari = new _Safari();
 Browser _internetExplorer = new _InternetExplorer();
+Browser _wkWebView = new _WKWebView();
 
 class _Chrome extends Browser {
   _Chrome() : super('Chrome', _isChrome, _getVersion);
@@ -95,12 +98,30 @@ class _Safari extends Browser {
   _Safari() : super('Safari', _isSafari, _getVersion);
 
   static bool _isSafari(NavigatorProvider navigator) {
-    // An web view running in an iOS app does not have a 'Version/X.X.X' in the appVersion
+    // An web view running in an iOS app does not have a 'Version/X.X.X' string in the appVersion
     return navigator.vendor.contains('Apple') && navigator.appVersion.contains('Version');
   }
 
   static Version _getVersion(NavigatorProvider navigator) {
     Match match = new RegExp(r'Version/(\d+)\.(\d+)\.(\d+)')
+        .firstMatch(navigator.appVersion);
+    var major = int.parse(match.group(1));
+    var minor = int.parse(match.group(2));
+    var patch = int.parse(match.group(3));
+    return new Version(major, minor, patch);
+  }
+}
+
+class _WKWebView extends Browser {
+  _WKWebView(): super('WKWebView', _isWKWebView, _getVersion);
+
+  static bool _isWKWebView(NavigatorProvider navigator) {
+    // An web view running in an iOS app does not have a 'Version/X.X.X' string in the appVersion
+    return navigator.vendor.contains('Apple') && !navigator.appVersion.contains('Version');
+  }
+
+  static Version _getVersion(NavigatorProvider navigator) {
+    Match match = new RegExp(r'AppleWebKit/(\d+)\.(\d+)\.(\d+)')
         .firstMatch(navigator.appVersion);
     var major = int.parse(match.group(1));
     var minor = int.parse(match.group(2));
