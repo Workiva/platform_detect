@@ -96,5 +96,24 @@ void main() {
       expect(browser.isInternetExplorer, false);
       expect(browser.version, new Version(9, 1, 3));
     });
+
+    test('WKWebView', () {
+      var navigator = new TestNavigator()
+          ..vendor = 'Apple Computer, Inc.'
+          ..userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.8 (KHTML, like Gecko) Version/9.1.3 Safari/601.7.8'
+          ..appVersion = '5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.8 (KHTML, like Gecko) Safari/601.7.8'
+          ..appName = 'Netscape';
+
+      Browser.navigator = navigator;
+      Browser browser = Browser.getCurrentBrowser();
+
+      expect(browser.name, 'WKWebView');
+      expect(browser.isChrome, false);
+      expect(browser.isFirefox, false);
+      expect(browser.isSafari, false);
+      expect(browser.isWKWebView, true);
+      expect(browser.isInternetExplorer, false);
+      expect(browser.version, new Version(601, 7, 8));
+    });
   });
 }
