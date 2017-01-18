@@ -40,6 +40,10 @@ class Browser {
 
   Version _version;
 
+  void reset() {
+    _version = null;
+  }
+
   Version get version {
     if (_version == null) {
       if (_parseVersion != null) {
@@ -57,6 +61,7 @@ class Browser {
     _firefox,
     _safari,
     _internetExplorer,
+    _edge,
     _wkWebView
   ];
 
@@ -64,6 +69,7 @@ class Browser {
   bool get isFirefox => this == _firefox;
   bool get isSafari => this == _safari;
   bool get isInternetExplorer => this == _internetExplorer;
+  bool get isEdge => this == _edge;
   bool get isWKWebView => this == _wkWebView;
 }
 
@@ -71,6 +77,7 @@ Browser _chrome = new _Chrome();
 Browser _firefox = new _Firefox();
 Browser _safari = new _Safari();
 Browser _internetExplorer = new _InternetExplorer();
+Browser _edge = new _Edge();
 Browser _wkWebView = new _WKWebView();
 
 class _Chrome extends Browser {
@@ -156,13 +163,13 @@ class _InternetExplorer extends Browser {
 
   static bool _isInternetExplorer(NavigatorProvider navigator) {
     return navigator.appName.contains('Microsoft') ||
-        navigator.appVersion.contains('Trident') ||
-        navigator.appVersion.contains('Edge');
+        navigator.appVersion.contains('Trident');
   }
 
   static Version _getVersion(NavigatorProvider navigator) {
     Match match =
         new RegExp(r'MSIE (\d+)\.(\d+);').firstMatch(navigator.appVersion);
+
     if (match != null) {
       var major = int.parse(match.group(1));
       var minor = int.parse(match.group(2));
@@ -176,7 +183,20 @@ class _InternetExplorer extends Browser {
       return new Version(major, minor, 0);
     }
 
-    match = new RegExp(r'Edge/(\d+)\.(\d+)$').firstMatch(navigator.appVersion);
+    return new Version(0, 0, 0);
+  }
+}
+
+class _Edge extends Browser {
+  _Edge() : super('Edge', _isEdge, _getVersion);
+
+  static bool _isEdge(NavigatorProvider navigator) {
+    return navigator.appVersion.contains('Edge');
+  }
+
+  static Version _getVersion(NavigatorProvider navigator) {
+    Match match =
+        new RegExp(r'Edge/(\d+)\.(\d+)$').firstMatch(navigator.appVersion);
     if (match != null) {
       var major = int.parse(match.group(1));
       var minor = int.parse(match.group(2));

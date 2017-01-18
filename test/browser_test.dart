@@ -13,12 +13,15 @@ void main() {
     test('Unknown Browser', () {
       Browser.navigator = new TestNavigator();
       var browser = Browser.getCurrentBrowser();
+      browser.reset();
+
       expect(browser.name, Browser.UnknownBrowser.name);
       expect(browser.version, Browser.UnknownBrowser.version);
       expect(browser.isChrome, false);
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, false);
+      expect(browser.isEdge, false);
     });
 
     test('Fake Browser', () {
@@ -30,6 +33,7 @@ void main() {
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, false);
+      expect(browser.isEdge, false);
     });
 
     test('Chrome', () {
@@ -39,29 +43,87 @@ void main() {
           ..vendor = 'Google Inc.';
       Browser.navigator = navigator;
       Browser browser = Browser.getCurrentBrowser();
+      browser.reset();
 
       expect(browser.name, 'Chrome');
       expect(browser.isChrome, true);
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, false);
+      expect(browser.isEdge, false);
       expect(browser.version, new Version(53, 0, 2785, build: '143'));
     });
 
-    test('Internet Explorer', () {
+    test('Internet Explorer 11', () {
       var navigator = new TestNavigator()
           ..userAgent = 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; rv:11.0) like Gecko'
           ..appVersion = '5.0 (Windows NT 6.1; WOW64; Trident/7.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; rv:11.0) like Gecko'
           ..appName = 'Netscape';
       Browser.navigator = navigator;
       Browser browser = Browser.getCurrentBrowser();
+      browser.reset();
 
       expect(browser.name, 'Internet Explorer');
       expect(browser.isChrome, false);
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, true);
+      expect(browser.isEdge, false);
       expect(browser.version, new Version(11, 0, 0));
+    });
+
+    test('Internet Explorer 10', () {
+      var navigator = new TestNavigator()
+          ..userAgent = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C)'
+          ..appVersion = '5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C)'
+          ..appName = 'Microsoft Internet Explorer';
+      Browser.navigator = navigator;
+      Browser browser = Browser.getCurrentBrowser();
+      browser.reset();
+
+      expect(browser.name, 'Internet Explorer');
+      expect(browser.isChrome, false);
+      expect(browser.isFirefox, false);
+      expect(browser.isSafari, false);
+      expect(browser.isInternetExplorer, true);
+      expect(browser.isEdge, false);
+      expect(browser.version, new Version(10, 0, 0));
+    });
+
+    test('Internet Explorer 9', () {
+      var navigator = new TestNavigator()
+          ..userAgent = 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C)'
+          ..appVersion = '5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C)'
+          ..appName = 'Microsoft Internet Explorer';
+      Browser.navigator = navigator;
+      Browser browser = Browser.getCurrentBrowser();
+      browser.reset();
+
+      expect(browser.name, 'Internet Explorer');
+      expect(browser.isChrome, false);
+      expect(browser.isFirefox, false);
+      expect(browser.isSafari, false);
+      expect(browser.isInternetExplorer, true);
+      expect(browser.isEdge, false);
+      expect(browser.version, new Version(9, 0, 0));
+    });
+
+    test('Internet Explorer 8', () {
+      var navigator = new TestNavigator()
+          ..userAgent = 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C)'
+          ..appVersion = '4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C)'
+          ..appName = 'Microsoft Internet Explorer';
+      Browser.navigator = navigator;
+      Browser browser = Browser.getCurrentBrowser();
+      browser.reset();
+
+      expect(browser.name, 'Internet Explorer');
+      expect(browser.isChrome, false);
+      expect(browser.isFirefox, false);
+      expect(browser.isSafari, false);
+      expect(browser.isInternetExplorer, true);
+      expect(browser.isEdge, false);
+      expect(browser.version, new Version(8, 0, 0));
     });
 
     test('Firefox', () {
@@ -71,12 +133,14 @@ void main() {
           ..appName = 'Netscape';
       Browser.navigator = navigator;
       Browser browser = Browser.getCurrentBrowser();
+      browser.reset();
 
       expect(browser.name, 'Firefox');
       expect(browser.isChrome, false);
       expect(browser.isFirefox, true);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, false);
+      expect(browser.isEdge, false);
       expect(browser.version, new Version(48, 0, 0));
     });
 
@@ -88,12 +152,14 @@ void main() {
           ..appName = 'Netscape';
       Browser.navigator = navigator;
       Browser browser = Browser.getCurrentBrowser();
+      browser.reset();
 
       expect(browser.name, 'Safari');
       expect(browser.isChrome, false);
       expect(browser.isFirefox, false);
       expect(browser.isSafari, true);
       expect(browser.isInternetExplorer, false);
+      expect(browser.isEdge, false);
       expect(browser.version, new Version(9, 1, 3));
     });
 
@@ -106,6 +172,7 @@ void main() {
 
       Browser.navigator = navigator;
       Browser browser = Browser.getCurrentBrowser();
+      browser.reset();
 
       expect(browser.name, 'WKWebView');
       expect(browser.isChrome, false);
@@ -113,7 +180,29 @@ void main() {
       expect(browser.isSafari, false);
       expect(browser.isWKWebView, true);
       expect(browser.isInternetExplorer, false);
+      expect(browser.isEdge, false);
       expect(browser.version, new Version(601, 7, 8));
+    });
+
+    test('Edge', () {
+      var navigator = new TestNavigator()
+          ..vendor = ''
+          ..userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.79 Safari/537.36 Edge/14.14393'
+          ..appVersion = '5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.79 Safari/537.36 Edge/14.14393'
+          ..appName = 'Netscape';
+
+      Browser.navigator = navigator;
+      Browser browser = Browser.getCurrentBrowser();
+      browser.reset();
+
+      expect(browser.name, 'Edge');
+      expect(browser.isChrome, false);
+      expect(browser.isFirefox, false);
+      expect(browser.isSafari, false);
+      expect(browser.isWKWebView, false);
+      expect(browser.isInternetExplorer, false);
+      expect(browser.isEdge, true);
+      expect(browser.version, new Version(14, 14393, 0));
     });
   });
 }
