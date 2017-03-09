@@ -11,9 +11,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-library platform_detect.browser;
-
 import 'package:pub_semver/pub_semver.dart';
 import 'package:platform_detect/src/navigator.dart';
 
@@ -53,25 +50,25 @@ class Browser {
   }
 
   static List<Browser> _knownBrowsers = [
-    _chrome,
-    _firefox,
-    _safari,
-    _internetExplorer,
-    _wkWebView
+    chrome,
+    firefox,
+    safari,
+    internetExplorer,
+    wkWebView
   ];
 
-  bool get isChrome => this == _chrome;
-  bool get isFirefox => this == _firefox;
-  bool get isSafari => this == _safari;
-  bool get isInternetExplorer => this == _internetExplorer;
-  bool get isWKWebView => this == _wkWebView;
+  bool get isChrome => this == chrome;
+  bool get isFirefox => this == firefox;
+  bool get isSafari => this == safari;
+  bool get isInternetExplorer => this == internetExplorer;
+  bool get isWKWebView => this == wkWebView;
 }
 
-Browser _chrome = new _Chrome();
-Browser _firefox = new _Firefox();
-Browser _safari = new _Safari();
-Browser _internetExplorer = new _InternetExplorer();
-Browser _wkWebView = new _WKWebView();
+Browser chrome = new _Chrome();
+Browser firefox = new _Firefox();
+Browser safari = new _Safari();
+Browser internetExplorer = new _InternetExplorer();
+Browser wkWebView = new _WKWebView();
 
 class _Chrome extends Browser {
   _Chrome() : super('Chrome', _isChrome, _getVersion);

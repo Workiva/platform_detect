@@ -1,8 +1,13 @@
 @TestOn('vm')
-import 'package:platform_detect/src/operating_system.dart';
-import 'package:platform_detect/src/navigator.dart';
-import 'package:platform_detect/test_utils.dart';
 import 'package:test/test.dart';
+
+import 'package:platform_detect/src/navigator.dart';
+import 'package:platform_detect/src/operating_system.dart';
+
+final linux = new TestNavigator()..appVersion = 'Linux';
+final mac = new TestNavigator()..appVersion = 'Macintosh';
+final unix = new TestNavigator()..appVersion = 'X11';
+final windows = new TestNavigator()..appVersion = 'Windows';
 
 void main() {
   group('operating system detects', () {
@@ -21,7 +26,7 @@ void main() {
     });
 
     test('Windows Operating System', () {
-      OperatingSystem.navigator = OperatingSystemNavigators.windows;
+      OperatingSystem.navigator = windows;
       var os = OperatingSystem.getCurrentOperatingSystem();
       expect(os.name, 'Windows');
       expect(os.isMac, false);
@@ -31,7 +36,7 @@ void main() {
     });
 
     test('Mac Operating System', () {
-      OperatingSystem.navigator = OperatingSystemNavigators.mac;
+      OperatingSystem.navigator = mac;
       var os = OperatingSystem.getCurrentOperatingSystem();
       expect(os.name, 'Mac');
       expect(os.isMac, true);
@@ -41,7 +46,7 @@ void main() {
     });
 
     test('Unix Operating System', () {
-      OperatingSystem.navigator = OperatingSystemNavigators.unix;
+      OperatingSystem.navigator = unix;
       var os = OperatingSystem.getCurrentOperatingSystem();
       expect(os.name, 'Unix');
       expect(os.isMac, false);
@@ -51,7 +56,7 @@ void main() {
     });
 
     test('Linux Operating System', () {
-      OperatingSystem.navigator = OperatingSystemNavigators.linux;
+      OperatingSystem.navigator = linux;
       var os = OperatingSystem.getCurrentOperatingSystem();
       expect(os.name, 'Linux');
       expect(os.isMac, false);
