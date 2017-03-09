@@ -23,7 +23,8 @@ import 'package:platform_detect/src/operating_system.dart';
 ///
 /// Calling this method with no arguments will reset the library to its
 /// default behavior.
-void configureForTesting({Browser browser, OperatingSystem operatingSystem}) {
+void configurePlatformForTesting(
+    {Browser browser, OperatingSystem operatingSystem}) {
   _browser = browser;
   _operatingSystem = operatingSystem;
 }
