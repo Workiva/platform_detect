@@ -12,5 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 export 'package:platform_detect/src/detect.dart' show configureForTesting;
-export 'package:platform_detect/src/browser.dart' show chrome, firefox, internetExplorer, safari, wkWebView;
-export 'package:platform_detect/src/operating_system.dart' show linux, mac, unix, windows;
+export 'package:platform_detect/src/browser.dart'
+    show chrome, firefox, internetExplorer, safari, wkWebView;
+export 'package:platform_detect/src/operating_system.dart'
+    show linux, mac, unix, windows;

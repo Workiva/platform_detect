@@ -40,21 +40,20 @@ class OperatingSystem {
 }
 
 OperatingSystem linux =
-new OperatingSystem('Linux', (NavigatorProvider navigator) {
+    new OperatingSystem('Linux', (NavigatorProvider navigator) {
   return navigator.appVersion.contains('Linux');
 });
 
-OperatingSystem mac =
-new OperatingSystem('Mac', (NavigatorProvider navigator) {
+OperatingSystem mac = new OperatingSystem('Mac', (NavigatorProvider navigator) {
   return navigator.appVersion.contains('Mac');
 });
 
 OperatingSystem unix =
-new OperatingSystem('Unix', (NavigatorProvider navigator) {
+    new OperatingSystem('Unix', (NavigatorProvider navigator) {
   return navigator.appVersion.contains('X11');
 });
 
 OperatingSystem windows =
-new OperatingSystem('Windows', (NavigatorProvider navigator) {
+    new OperatingSystem('Windows', (NavigatorProvider navigator) {
   return navigator.appVersion.contains('Win');
 });
