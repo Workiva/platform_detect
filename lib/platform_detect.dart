@@ -13,4 +13,5 @@
 // limitations under the License.
 export 'package:platform_detect/src/browser.dart' show Browser;
 export 'package:platform_detect/src/detect.dart' show browser, operatingSystem;
+export 'package:platform_detect/src/navigator.dart' show TestNavigator;
 export 'package:platform_detect/src/operating_system.dart' show OperatingSystem;
