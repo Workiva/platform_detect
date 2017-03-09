@@ -1,6 +1,7 @@
 @TestOn('vm')
 import 'package:platform_detect/src/browser.dart';
 import 'package:platform_detect/src/navigator.dart';
+import 'package:platform_detect/test_utils.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 
@@ -33,11 +34,7 @@ void main() {
     });
 
     test('Chrome', () {
-      var navigator = new TestNavigator()
-          ..userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36'
-          ..appVersion = '5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36'
-          ..vendor = 'Google Inc.';
-      Browser.navigator = navigator;
+      Browser.navigator = BrowserNavigators.chrome;
       Browser browser = Browser.getCurrentBrowser();
 
       expect(browser.name, 'Chrome');
@@ -49,11 +46,7 @@ void main() {
     });
 
     test('Internet Explorer', () {
-      var navigator = new TestNavigator()
-          ..userAgent = 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; rv:11.0) like Gecko'
-          ..appVersion = '5.0 (Windows NT 6.1; WOW64; Trident/7.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; rv:11.0) like Gecko'
-          ..appName = 'Netscape';
-      Browser.navigator = navigator;
+      Browser.navigator = BrowserNavigators.internetExplorer;
       Browser browser = Browser.getCurrentBrowser();
 
       expect(browser.name, 'Internet Explorer');
@@ -65,11 +58,7 @@ void main() {
     });
 
     test('Firefox', () {
-      var navigator = new TestNavigator()
-          ..userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:48.0) Gecko/20100101 Firefox/48.0'
-          ..appVersion = '5.0 (Macintosh)'
-          ..appName = 'Netscape';
-      Browser.navigator = navigator;
+      Browser.navigator = BrowserNavigators.firefox;
       Browser browser = Browser.getCurrentBrowser();
 
       expect(browser.name, 'Firefox');
@@ -81,12 +70,7 @@ void main() {
     });
 
     test('Safari', () {
-      var navigator = new TestNavigator()
-          ..vendor = 'Apple Computer, Inc.'
-          ..userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.8 (KHTML, like Gecko) Version/9.1.3 Safari/601.7.8'
-          ..appVersion = '5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.8 (KHTML, like Gecko) Version/9.1.3 Safari/601.7.8'
-          ..appName = 'Netscape';
-      Browser.navigator = navigator;
+      Browser.navigator = BrowserNavigators.safari;
       Browser browser = Browser.getCurrentBrowser();
 
       expect(browser.name, 'Safari');
@@ -98,13 +82,7 @@ void main() {
     });
 
     test('WKWebView', () {
-      var navigator = new TestNavigator()
-          ..vendor = 'Apple Computer, Inc.'
-          ..userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.8 (KHTML, like Gecko) Version/9.1.3 Safari/601.7.8'
-          ..appVersion = '5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.8 (KHTML, like Gecko) Safari/601.7.8'
-          ..appName = 'Netscape';
-
-      Browser.navigator = navigator;
+      Browser.navigator = BrowserNavigators.wkWebView;
       Browser browser = Browser.getCurrentBrowser();
 
       expect(browser.name, 'WKWebView');
