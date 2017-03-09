@@ -11,4 +11,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+export 'package:platform_detect/src/browser.dart' show Browser;
 export 'package:platform_detect/src/detect.dart' show browser, operatingSystem;
+export 'package:platform_detect/src/operating_system.dart' show OperatingSystem;
