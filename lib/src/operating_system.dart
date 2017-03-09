@@ -11,9 +11,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-library platform_detect.operating_system;
-
 import 'package:platform_detect/src/navigator.dart';
 
 /// Matches an operating system name with how it is represented in window.navigator
@@ -34,30 +31,29 @@ class OperatingSystem {
   OperatingSystem(this.name, bool matchesNavigator(NavigatorProvider navigator))
       : this._matchesNavigator = matchesNavigator;
 
-  static List<OperatingSystem> _knownSystems = [_mac, _windows, _unix, _linux];
+  static List<OperatingSystem> _knownSystems = [mac, windows, linux, unix];
 
-  get isMac => this == _mac;
-  get isWindows => this == _windows;
-  get isUnix => this == _unix;
-  get isLinux => this == _linux;
-
-  static OperatingSystem _mac =
-      new OperatingSystem('Mac', (NavigatorProvider navigator) {
-    return navigator.appVersion.contains('Mac');
-  });
-
-  static OperatingSystem _windows =
-      new OperatingSystem('Windows', (NavigatorProvider navigator) {
-    return navigator.appVersion.contains('Win');
-  });
-
-  static OperatingSystem _unix =
-      new OperatingSystem('Unix', (NavigatorProvider navigator) {
-    return navigator.appVersion.contains('X11');
-  });
-
-  static OperatingSystem _linux =
-      new OperatingSystem('Linux', (NavigatorProvider navigator) {
-    return navigator.appVersion.contains('Linux');
-  });
+  get isLinux => this == linux;
+  get isMac => this == mac;
+  get isUnix => this == unix;
+  get isWindows => this == windows;
 }
+
+OperatingSystem linux =
+    new OperatingSystem('Linux', (NavigatorProvider navigator) {
+  return navigator.appVersion.contains('Linux');
+});
+
+OperatingSystem mac = new OperatingSystem('Mac', (NavigatorProvider navigator) {
+  return navigator.appVersion.contains('Mac');
+});
+
+OperatingSystem unix =
+    new OperatingSystem('Unix', (NavigatorProvider navigator) {
+  return navigator.appVersion.contains('X11');
+});
+
+OperatingSystem windows =
+    new OperatingSystem('Windows', (NavigatorProvider navigator) {
+  return navigator.appVersion.contains('Win');
+});
