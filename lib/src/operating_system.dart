@@ -34,30 +34,30 @@ class OperatingSystem {
   OperatingSystem(this.name, bool matchesNavigator(NavigatorProvider navigator))
       : this._matchesNavigator = matchesNavigator;
 
-  static List<OperatingSystem> _knownSystems = [_mac, _windows, _unix, _linux];
+  static List<OperatingSystem> _knownSystems = [_mac, _windows, _linux, _unix];
 
-  get isMac => this == _mac;
-  get isWindows => this == _windows;
-  get isUnix => this == _unix;
   get isLinux => this == _linux;
+  get isMac => this == _mac;
+  get isUnix => this == _unix;
+  get isWindows => this == _windows;
+
+  static OperatingSystem _linux =
+  new OperatingSystem('Linux', (NavigatorProvider navigator) {
+    return navigator.appVersion.contains('Linux');
+  });
 
   static OperatingSystem _mac =
       new OperatingSystem('Mac', (NavigatorProvider navigator) {
     return navigator.appVersion.contains('Mac');
   });
 
-  static OperatingSystem _windows =
-      new OperatingSystem('Windows', (NavigatorProvider navigator) {
-    return navigator.appVersion.contains('Win');
-  });
-
   static OperatingSystem _unix =
-      new OperatingSystem('Unix', (NavigatorProvider navigator) {
+  new OperatingSystem('Unix', (NavigatorProvider navigator) {
     return navigator.appVersion.contains('X11');
   });
 
-  static OperatingSystem _linux =
-      new OperatingSystem('Linux', (NavigatorProvider navigator) {
-    return navigator.appVersion.contains('Linux');
+  static OperatingSystem _windows =
+      new OperatingSystem('Windows', (NavigatorProvider navigator) {
+    return navigator.appVersion.contains('Win');
   });
 }
