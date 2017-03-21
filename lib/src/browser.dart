@@ -27,11 +27,15 @@ class Browser {
   static Browser UnknownBrowser = new Browser('Unknown', null, null);
 
   Browser(this.name, bool matchesNavigator(NavigatorProvider navigator),
-      Version parseVersion(NavigatorProvider navigator))
+      Version parseVersion(NavigatorProvider navigator),
+      {this.className})
       : this._matchesNavigator = matchesNavigator,
         this._parseVersion = parseVersion;
 
   final String name;
+
+  /// The CSS class value that should be used instead of lowercase [name] (optional).
+  final String className;
   final Function _matchesNavigator;
   final Function _parseVersion;
 
@@ -149,7 +153,8 @@ class _WKWebView extends Browser {
 
 class _InternetExplorer extends Browser {
   _InternetExplorer()
-      : super('Internet Explorer', _isInternetExplorer, _getVersion);
+      : super('Internet Explorer', _isInternetExplorer, _getVersion,
+            className: 'ie');
 
   static bool _isInternetExplorer(NavigatorProvider navigator) {
     return navigator.appName.contains('Microsoft') ||
