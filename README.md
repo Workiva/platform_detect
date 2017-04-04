@@ -1,4 +1,5 @@
-[![codecov](https://codecov.workiva.net/gh/Workiva/platform_detect/branch/master/graph/badge.svg?token=BF7AmHyx4L)](https://codecov.workiva.net/gh/Workiva/platform_detect)
+[![codecov](https://codecov.io/gh/Workiva/platform_detect/branch/master/graph/badge.svg)](https://codecov.io/gh/Workiva/platform_detect)
+[![documentation](https://img.shields.io/badge/Documentation-platform__detect-blue.svg)](https://www.dartdocs.org/documentation/platform_detect/latest)
 
 # platform_detect
 
