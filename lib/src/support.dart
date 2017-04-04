@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 import 'dart:html';
+
 import 'package:platform_detect/platform_detect.dart' show browser;
 
 /// The [Feature]s that `decorateRootNodeWithPlatformClasses` will produce CSS classes for no matter what.
