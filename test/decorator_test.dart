@@ -63,9 +63,9 @@ void main() {
                 'ua-${nameToClassName(browser.name)}${browser.version.major}'));
       });
 
-      test('major +$maxVersionRange version range', () {
-        for (var i = minVersionRange;
-            i < minVersionRange + maxVersionRange;
+      test('major +$decoratedNextVersionCount version range', () {
+        for (var i = nextVersion;
+            i < nextVersion + decoratedNextVersionCount;
             i++) {
           expect(fakeRootNodeClasses,
               contains('ua-lt-${nameToClassName(browser.name)}$i'));
