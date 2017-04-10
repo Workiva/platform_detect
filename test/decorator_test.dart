@@ -139,39 +139,74 @@ void main() {
             new List.from(defaultFeatureCssClassDecorators)
               ..add(uniqueConsumerFeature);
 
-        test(
+        group(
             'when none of them are found within `defaultFeatureCssClassDecorators`',
             () {
-          decorateRootNodeWithPlatformClasses(
-              features: consumerFeaturesThatContainsNoDefaults,
-              rootNode: fakeRootNode,
-              callback: callback);
+          test('', () {
+            decorateRootNodeWithPlatformClasses(
+                features: consumerFeaturesThatContainsNoDefaults,
+                rootNode: fakeRootNode,
+                callback: callback);
 
-          verifyFeatureCssClasses(
-              new List.from(defaultFeatureCssClassDecorators)
-                ..addAll(consumerFeaturesThatContainsNoDefaults));
+            verifyFeatureCssClasses(
+                new List.from(defaultFeatureCssClassDecorators)
+                  ..addAll(consumerFeaturesThatContainsNoDefaults));
+          });
+
+          test('and `includeDefaults` is set to `false`', () {
+            decorateRootNodeWithPlatformClasses(
+                features: consumerFeaturesThatContainsDefaults,
+                rootNode: fakeRootNode,
+                includeDefaults: false,
+                callback: callback);
+
+            verifyFeatureCssClasses(consumerFeaturesThatContainsNoDefaults);
+          });
         });
 
-        test(
+        group(
             'when all of them are found within `defaultFeatureCssClassDecorators`',
             () {
-          decorateRootNodeWithPlatformClasses(
-              features: consumerFeaturesThatMatchesDefaults,
-              rootNode: fakeRootNode,
-              callback: callback);
+          test('', () {
+            decorateRootNodeWithPlatformClasses(
+                features: consumerFeaturesThatMatchesDefaults,
+                rootNode: fakeRootNode,
+                callback: callback);
 
-          verifyFeatureCssClasses(consumerFeaturesThatMatchesDefaults);
+            verifyFeatureCssClasses(consumerFeaturesThatMatchesDefaults);
+          });
+
+          test('and `includeDefaults` is set to `false`', () {
+            decorateRootNodeWithPlatformClasses(
+                features: consumerFeaturesThatMatchesDefaults,
+                rootNode: fakeRootNode,
+                includeDefaults: false,
+                callback: callback);
+
+            verifyFeatureCssClasses(consumerFeaturesThatMatchesDefaults);
+          });
         });
 
-        test(
+        group(
             'when some of them are found within `defaultFeatureCssClassDecorators`',
             () {
-          decorateRootNodeWithPlatformClasses(
-              features: consumerFeaturesThatContainsDefaults,
-              rootNode: fakeRootNode,
-              callback: callback);
+          test('', () {
+            decorateRootNodeWithPlatformClasses(
+                features: consumerFeaturesThatContainsDefaults,
+                rootNode: fakeRootNode,
+                callback: callback);
 
-          verifyFeatureCssClasses(consumerFeaturesThatContainsDefaults);
+            verifyFeatureCssClasses(consumerFeaturesThatContainsDefaults);
+          });
+
+          test('and `includeDefaults` is set to `false`', () {
+            decorateRootNodeWithPlatformClasses(
+                features: consumerFeaturesThatContainsDefaults,
+                rootNode: fakeRootNode,
+                callback: callback);
+
+            verifyFeatureCssClasses(consumerFeaturesThatContainsDefaults);
+          });
         });
       });
     });
