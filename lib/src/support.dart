@@ -30,7 +30,7 @@ class Feature {
   /// Whether the feature is supported by the current browser.
   final bool isSupported;
 
-  bool operator==(dynamic other) => other is Feature && other.name == name;
+  bool operator ==(dynamic other) => other is Feature && other.name == name;
 
   Feature(this.name, this.isSupported);
 
