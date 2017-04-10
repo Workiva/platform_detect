@@ -16,4 +16,5 @@ export 'package:platform_detect/src/detect.dart'
     show browser, operatingSystem, features;
 export 'package:platform_detect/src/navigator.dart' show TestNavigator;
 export 'package:platform_detect/src/operating_system.dart' show OperatingSystem;
-export 'package:platform_detect/src/support.dart' show Feature;
+export 'package:platform_detect/src/support.dart'
+    show Feature, defaultFeatureCssClassDecorators;
