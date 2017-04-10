@@ -70,54 +70,12 @@ String _getBrowserVersionClasses() {
 
 /// Utility fn that returns the CSS classes that are analogous to the provided list of [features].
 @visibleForTesting
-String getFeatureSupportClasses(List<Feature> features) {
+String getFeatureSupportClasses(Iterable<Feature> features) {
   var classes = features.map((feature) => feature.isSupported
       ? feature.name
       : '$featureSupportNegationClassPrefix${feature.name}');
 
   return _listToClassNameString(classes.toList());
-}
-
-/// Utility fn that looks for [Feature]s within [consumerFeatures] that are not present
-/// within [defaultFeatureCssClassDecorators].
-///
-/// If any unique [Feature]s are found, they will be returned along with [defaultFeatureCssClassDecorators].
-///
-/// Ensures that the feature-based CSS classes returned from [getPlatformClasses] does not contain duplicates.
-List<Feature> _getAllSupportedFeatures(List<Feature> consumerFeatures) {
-  // Short-circuit if no `consumerFeatures` are found
-  if (consumerFeatures == null || consumerFeatures.isEmpty)
-    return defaultFeatureCssClassDecorators;
-
-  List<Feature> allSupportedFeatures =
-      new List.from(defaultFeatureCssClassDecorators);
-  var defaultFeaturesFoundInConsumerFeaturesList = 0;
-
-  for (var i = 0; i < consumerFeatures.length; i++) {
-    var consumerFeature = consumerFeatures[i];
-
-    // Only check the default features list for the next `feature`
-    // if all possible "matches" have not already been made.
-    if (defaultFeaturesFoundInConsumerFeaturesList <=
-        defaultFeatureCssClassDecorators.length) {
-      if (defaultFeatureCssClassDecorators.contains(consumerFeature)) {
-        defaultFeaturesFoundInConsumerFeaturesList++;
-        // Don't add this feature since we've already accounted for it when we
-        // initialized the value of `allSupportedFeatures`.
-        continue;
-      } else {
-        // The `consumerFeature` was not found within `defaultFeatureCssClassDecorators`.
-        allSupportedFeatures.add(consumerFeature);
-      }
-    } else {
-      // All default features have already been located in the provided `features` list,
-      // so we can safely add to `nonDefaultConsumerFeatures` without checking for its
-      // presence within `defaultFeatureCssClassDecorators`.
-      allSupportedFeatures.add(consumerFeature);
-    }
-  }
-
-  return allSupportedFeatures;
 }
 
 /// Utility fn that takes a list of [classes] and returns a space-separated string for
@@ -142,12 +100,14 @@ bool nodeHasBeenDecorated(Element rootNode) =>
 /// [defaultFeatureCssClassDecorators] that will have CSS classes present by default.
 String getPlatformClasses(
     {List<Feature> features, List<String> existingClasses: const []}) {
+  features ??= defaultFeatureCssClassDecorators;
+
   var classes = []
     ..addAll(existingClasses)
     ..add(_browserClassPrefix + _browserClassName)
     ..add(_getBrowserVersionClasses())
     ..add(_osClassPrefix + _osClassName)
-    ..add(getFeatureSupportClasses(_getAllSupportedFeatures(features)))
+    ..add(getFeatureSupportClasses(features.toSet()))
     ..add(_decorationCompleteClassName);
 
   return _listToClassNameString(classes);
