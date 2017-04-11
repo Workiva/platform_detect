@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Platform Detect Example</title>
+	<title>Platform Detect Examples</title>
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
@@ -10,96 +10,120 @@
 </head>
 <body style="padding: 2rem 0">
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1>Platform Detect Example</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <h2 class="mt-4">Current platform</h2>
+        <h1>Platform Detect Examples</h1>
 
-                <dl>
-                    <dt>Operating System</dt>
-                    <dd>
-                        <span class="text-primary" id="current-os"></span>
-                    </dd>
-                    <dt>Browser</dt>
-                    <dd>
-                        <div class="mb-3">
-                            <span class="text-primary" id="current-browser"></span>
-                            <span class="text-primary" id="current-version"></span>
-                        </div>
+        <div class="card-deck">
+            <div class="card">
+                <div class="card-block">
+                    <h2 class="card-title">Current platform</h2>
+                    <h4 class="mb-4"><code>platform_detect.dart</code></h4>
 
-                        <div class="form-check form-check-inline disabled">
-                            <label class="form-check-label">
-                                <input id="current-is-chrome" class="form-check-input" type="checkbox" value="chrome" disabled>
-                                Is Chrome
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline disabled">
-                            <label class="form-check-label">
-                                <input id="current-is-firefox" class="form-check-input" type="checkbox" value="firefox" disabled>
-                                Is Firefox
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline disabled">
-                            <label class="form-check-label">
-                                <input id="current-is-ie" class="form-check-input" type="checkbox" value="ie" disabled>
-                                Is Internet Explorer
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline disabled">
-                            <label class="form-check-label">
-                                <input id="current-is-safari" class="form-check-input" type="checkbox" value="safari" disabled>
-                                Is Safari
-                            </label>
-                        </div>
 
-                        <div class="card card-default card-outline-info card-block">
-                            <pre style="margin-bottom: 0;"><code lang="dart">vendor: <span class="text-primary" id="current-vendor"></span>
+                    <dl>
+                        <dt>Operating System</dt>
+                        <dd>
+                            <span class="text-primary" id="current-os"></span>
+                        </dd>
+                        <dt>Browser</dt>
+                        <dd>
+                            <div class="mb-3">
+                                <span class="text-primary" id="current-browser"></span>
+                                <span class="text-primary" id="current-version"></span>
+                            </div>
+
+                            <div class="form-check form-check-inline disabled">
+                                <label class="form-check-label">
+                                    <input id="current-is-chrome" class="form-check-input" type="checkbox" value="chrome" disabled>
+                                    Is Chrome
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline disabled">
+                                <label class="form-check-label">
+                                    <input id="current-is-firefox" class="form-check-input" type="checkbox" value="firefox" disabled>
+                                    Is Firefox
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline disabled">
+                                <label class="form-check-label">
+                                    <input id="current-is-ie" class="form-check-input" type="checkbox" value="ie" disabled>
+                                    Is Internet Explorer
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline disabled">
+                                <label class="form-check-label">
+                                    <input id="current-is-safari" class="form-check-input" type="checkbox" value="safari" disabled>
+                                    Is Safari
+                                </label>
+                            </div>
+
+                            <div class="card card-default card-outline-info card-block">
+                                <pre style="margin-bottom: 0;"><code lang="dart">vendor: <span class="text-primary" id="current-vendor"></span>
 appVersion: <span class="text-primary" id="current-appVersion"></span>
 appName: <span class="text-primary" id="current-appName"></span>
 userAgent: <span class="text-primary" id="current-userAgent"></span></code></pre>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+
+                <div class="card-block">
+                    <h3 class="card-title">Test custom values</h3>
+
+                    <div class="row">
+                        <div class="col col-sm-auto">
+                            <div class="form-group"><label class="col-form-label" for="test-vendor">vendor</label></div>
+                            <div class="form-group"><label class="col-form-label" for="test-appVersion">appVersion</label></div>
+                            <div class="form-group"><label class="col-form-label" for="test-appName">appName</label></div>
+                            <div class="form-group"><label class="col-form-label" for="test-userAgent">userAgent</label></div>
                         </div>
-                    </dd>
-                </dl>
+                        <div class="col col-sm">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="test-vendor" placeholder="Enter a vendor string">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="test-appVersion" placeholder="Enter an appVersion string">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="test-appName" placeholder="Enter an appName string">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="test-userAgent" placeholder="Enter an userAgent string">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="evaluate-test">Evaluate Test Values</button>
+
+                            <div class="card card-default card-outline-info card-block mt-3">
+                                <pre style="margin-bottom: 0;"><code lang="dart">Browser: <span id="test-browser-name"></span>
+    Version: <span class="text-primary" id="test-browser-version"></span>
+    Operating System: <span class="text-primary" id="test-os-name"></span></code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col">
+            <div class="card">
+                <div class="card-block">
+                    <h2 class="card-title"><code>&lt;html&gt;</code> decorators</h2>
+                    <h4 class="mb-4"><code>decorators.dart</code></h4>
 
-                <h2 class="mt-4">Test other values</h2>
-
-                <div class="row">
-                    <div class="col col-sm-auto">
-                        <div class="form-group"><label class="col-form-label" for="test-vendor">vendor</label></div>
-                        <div class="form-group"><label class="col-form-label" for="test-appVersion">appVersion</label></div>
-                        <div class="form-group"><label class="col-form-label" for="test-appName">appName</label></div>
-                        <div class="form-group"><label class="col-form-label" for="test-userAgent">userAgent</label></div>
-                    </div>
-                    <div class="col col-sm">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="test-vendor" placeholder="Enter a vendor string">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="test-appVersion" placeholder="Enter an appVersion string">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="test-appName" placeholder="Enter an appName string">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="test-userAgent" placeholder="Enter an userAgent string">
-                        </div>
-                        <button type="button" class="btn btn-primary" id="evaluate-test">Evaluate Test Values</button>
-
-                        <div class="card card-default card-outline-info card-block mt-3">
-                            <pre style="margin-bottom: 0;"><code lang="dart">Browser: <span id="test-browser-name"></span>
-Version: <span class="text-primary" id="test-browser-version"></span>
-Operating System: <span class="text-primary" id="test-os-name"></span></code></pre>
-                        </div>
-                    </div>
+                    <dl>
+                        <dt>Operating System Decorators</dt>
+                        <dd>
+                            <span class="text-primary" id="current-os-decorators"></span>
+                        </dd>
+                        <dt>Browser Decorators</dt>
+                        <dd>
+                            <div class="mb-3">
+                                <span class="text-primary" id="current-browser-decorators"></span>
+                            </div>
+                        </dd>
+                        <dt>Feature Decorators</dt>
+                        <dd>
+                            <div class="mb-3">
+                                <span class="text-primary" id="current-feature-decorators"></span>
+                            </div>
+                        </dd>
+                    </dl>
                 </div>
             </div>
         </div>

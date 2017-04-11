@@ -1,57 +1,110 @@
 import 'dart:html';
-import 'package:platform_detect/src/navigator.dart';
-import 'package:platform_detect/src/browser.dart';
-import 'package:platform_detect/src/operating_system.dart';
 import 'package:platform_detect/platform_detect.dart';
+import 'package:platform_detect/src/decorator.dart';
+
+// HTML Element IDs
+const String browserIdSuffix = 'browser';
+const String browserVersionIdSuffix = 'version';
+const String osIdSuffix = 'os';
+const String vendorIdSuffix = 'vendor';
+const String appVersionIdSuffix = 'appVersion';
+const String appNameIdSuffix = 'appName';
+const String userAgentIdSuffix = 'userAgent';
+
+const String currentBrowserId = 'current-$browserIdSuffix';
+const String currentBrowserVersionId = 'current-$browserVersionIdSuffix';
+const String currentOsId = 'current-$osIdSuffix';
+const String currentVendorId = 'current-$vendorIdSuffix';
+const String currentAppVersionId = 'current-$appVersionIdSuffix';
+const String currentAppNameId = 'current-$appNameIdSuffix';
+const String currentUserAgentId = 'current-$userAgentIdSuffix';
+
+const String testBrowserId = 'test-$browserIdSuffix';
+const String testVendorId = 'test-$vendorIdSuffix';
+const String testOsId = 'test-$osIdSuffix';
+const String testAppVersionId = 'test-$appVersionIdSuffix';
+const String testAppNameId = 'test-$appNameIdSuffix';
+const String testUserAgentId = 'test-$userAgentIdSuffix';
+
+const String isChromeCheckboxId = 'current-is-chrome';
+const String isFirefoxCheckboxId = 'current-is-firefox';
+const String isSafariCheckboxId = 'current-is-safari';
+const String isIeCheckboxId = 'current-is-ie';
 
 main() {
+  decorateRootNodeWithPlatformClasses();
+
   _parseCurrentBrowser();
+  _parseDecoratorValues();
   ButtonElement evaluate = querySelector('#evaluate-test');
   evaluate.onClick.listen((_) => _parseTestValues());
 }
 
 void _parseCurrentBrowser() {
-  document.querySelector('#current-browser').text = browser.name;
-  document.querySelector('#current-vendor').text = window.navigator.vendor;
-  document.querySelector('#current-appVersion').text =
+  document.querySelector('#$currentBrowserId').text = browser.name;
+  document.querySelector('#$currentBrowserVersionId').text =
+      browser.version.toString();
+  document.querySelector('#$currentOsId').text = operatingSystem.name;
+  document.querySelector('#$currentVendorId').text = window.navigator.vendor;
+  document.querySelector('#$currentAppVersionId').text =
       window.navigator.appVersion;
-  document.querySelector('#current-appName').text = window.navigator.appName;
-  document.querySelector('#current-userAgent').text =
+  document.querySelector('#$currentAppNameId').text = window.navigator.appName;
+  document.querySelector('#$currentUserAgentId').text =
       window.navigator.userAgent;
 
-  CheckboxInputElement isChrome = document.querySelector('#current-is-chrome');
+  CheckboxInputElement isChrome =
+      document.querySelector('#$isChromeCheckboxId');
   isChrome.checked = browser.isChrome;
 
   CheckboxInputElement isFirefox =
-      document.querySelector('#current-is-firefox');
+      document.querySelector('#$isFirefoxCheckboxId');
   isFirefox.checked = browser.isFirefox;
 
-  CheckboxInputElement isSafari = document.querySelector('#current-is-safari');
+  CheckboxInputElement isSafari =
+      document.querySelector('#$isSafariCheckboxId');
   isSafari.checked = browser.isSafari;
 
   CheckboxInputElement isInternetExplorer =
-      document.querySelector('#current-is-ie');
+      document.querySelector('#$isIeCheckboxId');
   isInternetExplorer.checked = browser.isInternetExplorer;
-
-  document.querySelector('#current-version').text = browser.version.toString();
-
-  document.querySelector('#current-os').text = operatingSystem.name;
 }
 
 void _parseTestValues() {
-  InputElement testVendor = querySelector('#test-vendor');
-  InputElement testAppVersion = querySelector('#test-appVersion');
-  InputElement testAppName = querySelector('#test-appName');
-  InputElement testUserAgent = querySelector('#test-userAgent');
+  InputElement testVendorInput = querySelector('#$testVendorId');
+  InputElement testAppVersionInput = querySelector('#$testAppVersionId');
+  InputElement testAppNameInput = querySelector('#$testAppNameId');
+  InputElement testUserAgentInput = querySelector('#$testUserAgentId');
+
   var navigator = new TestNavigator();
-  navigator.vendor = testVendor.value.trim();
-  navigator.appVersion = testAppVersion.value.trim();
-  navigator.appName = testAppName.value.trim();
-  navigator.userAgent = testUserAgent.value.trim();
+  navigator.vendor = testVendorInput.value.trim();
+  navigator.appVersion = testAppVersionInput.value.trim();
+  navigator.appName = testAppNameInput.value.trim();
+  navigator.userAgent = testUserAgentInput.value.trim();
   Browser.navigator = navigator;
   OperatingSystem.navigator = navigator;
 
-  querySelector('#test-browser-name').text = browser.name;
-  querySelector('#test-browser-version').text = browser.version.toString();
-  querySelector('#test-os-name').text = operatingSystem.name;
+  querySelector('#$testBrowserId-name').text = browser.name;
+  querySelector('#$testBrowserId-version').text = browser.version.toString();
+  querySelector('#$testOsId-name').text = operatingSystem.name;
+}
+
+void _parseDecoratorValues() {
+  CssClassSet htmlElementClasses = document.documentElement.classes;
+
+  String osDecorators = htmlElementClasses
+      .toList()
+      .where((classStr) => classStr.indexOf(osClassPrefix) > -1)
+      .join(' ');
+
+  String browserDecorators = htmlElementClasses
+      .toList()
+      .where((classStr) => classStr.indexOf(browserClassPrefix) > -1)
+      .join(' ');
+
+  String featureDecorators =
+      getFeatureSupportClasses(defaultFeatureCssClassDecorators);
+
+  querySelector('#$currentOsId-decorators').text = osDecorators;
+  querySelector('#$currentBrowserId-decorators').text = browserDecorators;
+  querySelector('#current-feature-decorators').text = featureDecorators;
 }
