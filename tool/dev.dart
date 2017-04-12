@@ -6,6 +6,7 @@ main(List<String> args) async {
     'lib/platform_detect.dart',
     'lib/test_utils.dart',
     'test/browser_test.dart',
+    'test/decorator_test.dart',
     'test/operating_system_test.dart',
     'test/test_utils_test.dart',
     'tool/dev.dart',

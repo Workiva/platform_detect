@@ -16,6 +16,7 @@ import 'dart:html';
 import 'package:platform_detect/src/browser.dart';
 import 'package:platform_detect/src/navigator.dart';
 import 'package:platform_detect/src/operating_system.dart';
+import 'package:platform_detect/src/support.dart';
 
 /// A test utility that allows a consumer to instruct the library to
 /// respond as though it was running on a particular browser and / or
@@ -24,9 +25,12 @@ import 'package:platform_detect/src/operating_system.dart';
 /// Calling this method with no arguments will reset the library to its
 /// default behavior.
 void configurePlatformForTesting(
-    {Browser browser, OperatingSystem operatingSystem}) {
+    {Browser browser,
+    OperatingSystem operatingSystem,
+    List<Feature> features}) {
   _browser = browser;
   _operatingSystem = operatingSystem;
+  _features = features;
 }
 
 Browser _browser;
@@ -52,6 +56,11 @@ OperatingSystem get operatingSystem {
 
   return _operatingSystem;
 }
+
+List<Feature> _features;
+
+/// Current browser feature support info
+List<Feature> get features => _features;
 
 class _HtmlNavigator implements NavigatorProvider {
   String get vendor => window.navigator.vendor;

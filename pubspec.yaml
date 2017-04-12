@@ -10,6 +10,7 @@ environment:
 
 dependencies:
   pub_semver: ^1.0.0
+  meta: ^1.0.4
 
 dev_dependencies:
   dartdoc: '>=0.8.0 <=0.10.0'
