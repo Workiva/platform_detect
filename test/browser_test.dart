@@ -70,16 +70,53 @@ void main() {
       expect(browser.version, new Version(48, 0, 0));
     });
 
-    test('Safari', () {
-      Browser.navigator = testSafari();
-      Browser browser = Browser.getCurrentBrowser();
+    group('Safari', () {
+      tearDown(() {
+        Browser.navigator = null;
+      });
 
-      expect(browser.name, 'Safari');
-      expect(browser.isChrome, false);
-      expect(browser.isFirefox, false);
-      expect(browser.isSafari, true);
-      expect(browser.isInternetExplorer, false);
-      expect(browser.version, new Version(9, 1, 3));
+      test('major, minor and patch version', () {
+        Browser.navigator = testSafari();
+        Browser browser = Browser.getCurrentBrowser();
+
+        expect(browser.name, 'Safari');
+        expect(browser.isChrome, false);
+        expect(browser.isFirefox, false);
+        expect(browser.isSafari, true);
+        expect(browser.isInternetExplorer, false);
+        expect(browser.version, new Version(9, 1, 3));
+      });
+
+      test('major and minor version', () {
+        Browser.navigator = testSafari(
+            userAgent: safariUserAgentWithoutPatchTestString,
+            appVersion: safariAppVersionWithoutPatchTestString);
+        print(Browser.navigator.userAgent);
+        Browser browser = Browser.getCurrentBrowser();
+        browser.clearVersion();
+
+        expect(browser.name, 'Safari');
+        expect(browser.isChrome, false);
+        expect(browser.isFirefox, false);
+        expect(browser.isSafari, true);
+        expect(browser.isInternetExplorer, false);
+        expect(browser.version, new Version(10, 1, 0));
+      });
+
+      test('only a major version', () {
+        Browser.navigator = testSafari(
+            userAgent: safariUserAgentWithoutMinorTestString,
+            appVersion: safariAppVersionWithoutMinorTestString);
+        Browser browser = Browser.getCurrentBrowser();
+        browser.clearVersion();
+
+        expect(browser.name, 'Safari');
+        expect(browser.isChrome, false);
+        expect(browser.isFirefox, false);
+        expect(browser.isSafari, true);
+        expect(browser.isInternetExplorer, false);
+        expect(browser.version, new Version(11, 0, 0));
+      });
     });
 
     test('WKWebView', () {

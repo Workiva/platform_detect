@@ -83,6 +83,8 @@ void _parseTestValues() {
   Browser.navigator = navigator;
   OperatingSystem.navigator = navigator;
 
+  var browser = Browser.getCurrentBrowser();
+  var operatingSystem = OperatingSystem.getCurrentOperatingSystem();
   querySelector('#$testBrowserId-name').text = browser.name;
   querySelector('#$testBrowserId-version').text = browser.version.toString();
   querySelector('#$testOsId-name').text = operatingSystem.name;
