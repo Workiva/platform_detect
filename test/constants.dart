@@ -24,6 +24,14 @@ const String safariUserAgentTestString =
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.8 (KHTML, like Gecko) Version/9.1.3 Safari/601.7.8';
 const String safariAppVersionTestString =
     '5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.8 (KHTML, like Gecko) Version/9.1.3 Safari/601.7.8';
+const String safariUserAgentWithoutPatchTestString =
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.8 (KHTML, like Gecko) Version/10.1 Safari/601.7.8';
+const String safariAppVersionWithoutPatchTestString =
+    '5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.8 (KHTML, like Gecko) Version/10.1 Safari/601.7.8';
+const String safariUserAgentWithoutMinorTestString =
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.8 (KHTML, like Gecko) Version/11 Safari/601.7.8';
+const String safariAppVersionWithoutMinorTestString =
+    '5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.8 (KHTML, like Gecko) Version/11 Safari/601.7.8';
 const String safariAppNameTestString = 'Netscape';
 const String safariVendorTestString = 'Apple Computer, Inc.';
 

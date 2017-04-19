@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+import 'package:meta/meta.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:platform_detect/src/navigator.dart';
 
@@ -23,6 +24,9 @@ class Browser {
         (browser) => browser._matchesNavigator(navigator),
         orElse: () => UnknownBrowser);
   }
+
+  @visibleForTesting
+  clearVersion() => _version = null;
 
   static Browser UnknownBrowser = new Browser('Unknown', null, null);
 
@@ -121,11 +125,12 @@ class _Safari extends Browser {
   }
 
   static Version _getVersion(NavigatorProvider navigator) {
-    Match match = new RegExp(r'Version/(\d+)\.(\d+)\.(\d+)')
+    Match match = new RegExp(r'Version/(\d+)(\.(\d+))?(\.(\d+))?')
         .firstMatch(navigator.appVersion);
     var major = int.parse(match.group(1));
-    var minor = int.parse(match.group(2));
-    var patch = int.parse(match.group(3));
+    var minor = int.parse(match.group(3) ?? '0');
+    var patch = int.parse(match.group(5) ?? '0');
+
     return new Version(major, minor, patch);
   }
 }
