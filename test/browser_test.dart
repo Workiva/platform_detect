@@ -91,7 +91,6 @@ void main() {
         Browser.navigator = testSafari(
             userAgent: safariUserAgentWithoutPatchTestString,
             appVersion: safariAppVersionWithoutPatchTestString);
-        print(Browser.navigator.userAgent);
         Browser browser = Browser.getCurrentBrowser();
         browser.clearVersion();
 
