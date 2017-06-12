@@ -24,8 +24,12 @@ abstract class NavigatorProvider {
 
 /// Simple implementation that enables ease of unit testing
 class TestNavigator implements NavigatorProvider {
+  @override
   String vendor = '';
+  @override
   String appVersion = '';
+  @override
   String appName = '';
+  @override
   String userAgent = '';
 }
