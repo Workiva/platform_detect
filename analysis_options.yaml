@@ -1,2 +1,9 @@
 analyzer:
   strong-mode: true
+linter:
+  rules:
+    - annotate_overrides
+    - await_only_futures
+    - cancel_subscriptions
+    - close_sinks
+    - unawaited_futures

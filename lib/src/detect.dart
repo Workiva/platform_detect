@@ -63,8 +63,12 @@ List<Feature> _features;
 List<Feature> get features => _features;
 
 class _HtmlNavigator implements NavigatorProvider {
+  @override
   String get vendor => window.navigator.vendor;
+  @override
   String get appVersion => window.navigator.appVersion;
+  @override
   String get appName => window.navigator.appName;
+  @override
   String get userAgent => window.navigator.userAgent;
 }
