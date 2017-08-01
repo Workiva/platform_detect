@@ -7,6 +7,9 @@ const String chromeAppVersionTestString =
 const String chromeAppNameTestString = null;
 const String chromeVendorTestString = 'Google Inc.';
 
+const String chromelessUserAgentTestString = 'Chromeless 1.0.1';
+const String chromelessAppVersionTestString = 'Chromeless 1.0.1';
+
 const String firefoxUserAgentTestString =
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:48.0) Gecko/20100101 Firefox/48.0';
 const String firefoxAppVersionTestString = '5.0 (Macintosh)';
@@ -51,6 +54,19 @@ TestNavigator testChrome({
   return new TestNavigator()
     ..userAgent = userAgent
     ..appVersion = appVersion
+    ..appName = appName
+    ..vendor = vendor;
+}
+
+TestNavigator testChromeless({
+  userAgent: chromelessUserAgentTestString,
+  appVersion: chromelessAppVersionTestString,
+  appName: chromeAppNameTestString,
+  vendor: chromeVendorTestString,
+}) {
+  return new TestNavigator()
+    ..userAgent = chromelessUserAgentTestString
+    ..appVersion = chromelessAppVersionTestString
     ..appName = appName
     ..vendor = vendor;
 }
