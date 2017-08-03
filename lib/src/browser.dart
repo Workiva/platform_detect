@@ -89,11 +89,15 @@ class _Chrome extends Browser {
   static Version _getVersion(NavigatorProvider navigator) {
     Match match = new RegExp(r"Chrome/(\d+)\.(\d+)\.(\d+)\.(\d+)\s")
         .firstMatch(navigator.appVersion);
-    var major = int.parse(match.group(1));
-    var minor = int.parse(match.group(2));
-    var patch = int.parse(match.group(3));
-    var build = match.group(4);
-    return new Version(major, minor, patch, build: build);
+    if (match != null) {
+      var major = int.parse(match.group(1));
+      var minor = int.parse(match.group(2));
+      var patch = int.parse(match.group(3));
+      var build = match.group(4);
+      return new Version(major, minor, patch, build: build);
+    } else {
+      return new Version(0, 0, 0);
+    }
   }
 }
 
