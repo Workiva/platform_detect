@@ -1,0 +1,3 @@
+title: platform_detect
+base: github:Workiva/platform_detect/
+src: README.md
