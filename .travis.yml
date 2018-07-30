@@ -1,4 +1,6 @@
 language: dart
+sudo: required
+chrome: stable
 dart:
   - 1.24.3
   - dev
