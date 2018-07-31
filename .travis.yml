@@ -6,6 +6,6 @@ dart:
 dart_task:
   - test: --platform vm
   - test: --platform chrome
-  - dartanalyzer: lib example
+  - dartanalyzer
   - dartfmt: true
 
