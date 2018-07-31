@@ -118,7 +118,7 @@ String getPlatformClasses(
 
   if (includeDefaults) allFeatures.addAll(defaultFeatureCssClassDecorators);
 
-  var classes = []
+  var classes = <String>[]
     ..addAll(existingClasses)
     ..add(browserClassPrefix + browserClassName)
     ..add(getBrowserVersionClasses())

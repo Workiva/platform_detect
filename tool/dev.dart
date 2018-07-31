@@ -20,7 +20,7 @@ main(List<String> args) async {
       'tool/',
     ];
 
-  config.test..platforms = ['content-shell', 'vm'];
+  config.test..platforms = ['chrome', 'vm'];
 
   await dev(args);
 }
