@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+
 import 'dart:html';
 import 'package:platform_detect/platform_detect.dart';
 import 'package:platform_detect/src/decorator.dart';

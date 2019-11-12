@@ -33,6 +33,9 @@ class Feature {
   @override
   bool operator ==(dynamic other) => other is Feature && other.name == name;
 
+  @override
+  int get hashCode => name.hashCode;
+
   Feature(this.name, this.isSupported);
 
   /// Whether the browser supports [TouchEvent]s.

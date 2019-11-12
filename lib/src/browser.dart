@@ -33,8 +33,8 @@ class Browser {
   Browser(this.name, bool matchesNavigator(NavigatorProvider navigator),
       Version parseVersion(NavigatorProvider navigator),
       {this.className})
-      : this._matchesNavigator = matchesNavigator,
-        this._parseVersion = parseVersion;
+      : _matchesNavigator = matchesNavigator,
+        _parseVersion = parseVersion;
 
   final String name;
 

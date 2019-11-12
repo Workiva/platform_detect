@@ -29,7 +29,7 @@ class OperatingSystem {
   final Function _matchesNavigator;
 
   OperatingSystem(this.name, bool matchesNavigator(NavigatorProvider navigator))
-      : this._matchesNavigator = matchesNavigator;
+      : _matchesNavigator = matchesNavigator;
 
   static List<OperatingSystem> _knownSystems = [mac, windows, linux, unix];
 
