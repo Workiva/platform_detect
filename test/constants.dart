@@ -46,10 +46,10 @@ const String wkWebViewAppNameTestString = 'Netscape';
 const String wkWebViewVendorTestString = 'Apple Computer, Inc.';
 
 TestNavigator testChrome({
-  userAgent: chromeUserAgentTestString,
-  appVersion: chromeAppVersionTestString,
-  appName: chromeAppNameTestString,
-  vendor: chromeVendorTestString,
+  userAgent = chromeUserAgentTestString,
+  appVersion = chromeAppVersionTestString,
+  appName = chromeAppNameTestString,
+  vendor = chromeVendorTestString,
 }) {
   return new TestNavigator()
     ..userAgent = userAgent
@@ -59,10 +59,10 @@ TestNavigator testChrome({
 }
 
 TestNavigator testChromeless({
-  userAgent: chromelessUserAgentTestString,
-  appVersion: chromelessAppVersionTestString,
-  appName: chromeAppNameTestString,
-  vendor: chromeVendorTestString,
+  userAgent = chromelessUserAgentTestString,
+  appVersion = chromelessAppVersionTestString,
+  appName = chromeAppNameTestString,
+  vendor = chromeVendorTestString,
 }) {
   return new TestNavigator()
     ..userAgent = chromelessUserAgentTestString
@@ -72,10 +72,10 @@ TestNavigator testChromeless({
 }
 
 TestNavigator testFirefox({
-  userAgent: firefoxUserAgentTestString,
-  appVersion: firefoxAppVersionTestString,
-  appName: firefoxAppNameTestString,
-  vendor: firefoxVendorTestString,
+  userAgent = firefoxUserAgentTestString,
+  appVersion = firefoxAppVersionTestString,
+  appName = firefoxAppNameTestString,
+  vendor = firefoxVendorTestString,
 }) {
   return new TestNavigator()
     ..userAgent = userAgent
@@ -85,10 +85,10 @@ TestNavigator testFirefox({
 }
 
 TestNavigator testInternetExplorer({
-  userAgent: ieUserAgentTestString,
-  appVersion: ieAppVersionTestString,
-  appName: ieAppNameTestString,
-  vendor: ieVendorTestString,
+  userAgent = ieUserAgentTestString,
+  appVersion = ieAppVersionTestString,
+  appName = ieAppNameTestString,
+  vendor = ieVendorTestString,
 }) {
   return new TestNavigator()
     ..userAgent = userAgent
@@ -98,10 +98,10 @@ TestNavigator testInternetExplorer({
 }
 
 TestNavigator testSafari({
-  userAgent: safariUserAgentTestString,
-  appVersion: safariAppVersionTestString,
-  appName: safariAppNameTestString,
-  vendor: safariVendorTestString,
+  userAgent = safariUserAgentTestString,
+  appVersion = safariAppVersionTestString,
+  appName = safariAppNameTestString,
+  vendor = safariVendorTestString,
 }) {
   return new TestNavigator()
     ..userAgent = userAgent
@@ -111,10 +111,10 @@ TestNavigator testSafari({
 }
 
 TestNavigator testWkWebView({
-  userAgent: wkWebViewUserAgentTestString,
-  appVersion: wkWebViewAppVersionTestString,
-  appName: wkWebViewAppNameTestString,
-  vendor: wkWebViewVendorTestString,
+  userAgent = wkWebViewUserAgentTestString,
+  appVersion = wkWebViewAppVersionTestString,
+  appName = wkWebViewAppNameTestString,
+  vendor = wkWebViewVendorTestString,
 }) {
   return new TestNavigator()
     ..userAgent = userAgent
