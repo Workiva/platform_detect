@@ -1,8 +1,8 @@
 language: dart
 sudo: required
 dart:
-  - 1.24.3
-  - 2.0.0
+  - 2.4.1 # TODO: Remove this and bump the lower SDK bound to 2.6.1 once we've upgraded the ecosystem to it
+  - stable
 dart_task:
   - test: --platform vm
   - test: --platform chrome

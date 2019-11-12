@@ -1,4 +1,4 @@
-FROM google/dart:1.24.3 as build
+FROM drydock-prod.workiva.net/workiva/dart_build_image:1
 
 WORKDIR /build
 
@@ -13,6 +13,6 @@ ARG GIT_BRANCH
 
 RUN pub get
 
-ARG BUILD_ARTIFACTS_DART-DEPENDENCIES=/build/pubspec.lock
+ARG BUILD_ARTIFACTS_DART_PUBSPECLOCK=/build/pubspec.lock
 
 FROM scratch
