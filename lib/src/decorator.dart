@@ -114,7 +114,7 @@ String getPlatformClasses(
     {List<Feature> features,
     bool includeDefaults = true,
     List<String> existingClasses = const []}) {
-  var allFeatures = new Set<Feature>.from(features ?? []);
+  var allFeatures = Set<Feature>.from(features ?? []);
 
   if (includeDefaults) allFeatures.addAll(defaultFeatureCssClassDecorators);
 

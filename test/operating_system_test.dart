@@ -4,10 +4,10 @@ import 'package:test/test.dart';
 import 'package:platform_detect/src/navigator.dart';
 import 'package:platform_detect/src/operating_system.dart';
 
-final linux = new TestNavigator()..appVersion = 'Linux';
-final mac = new TestNavigator()..appVersion = 'Macintosh';
-final unix = new TestNavigator()..appVersion = 'X11';
-final windows = new TestNavigator()..appVersion = 'Windows';
+final linux = TestNavigator()..appVersion = 'Linux';
+final mac = TestNavigator()..appVersion = 'Macintosh';
+final unix = TestNavigator()..appVersion = 'X11';
+final windows = TestNavigator()..appVersion = 'Windows';
 
 void main() {
   group('operating system detects', () {
@@ -16,7 +16,7 @@ void main() {
     });
 
     test('Unknown Operating System', () {
-      OperatingSystem.navigator = new TestNavigator();
+      OperatingSystem.navigator = TestNavigator();
       var os = OperatingSystem.getCurrentOperatingSystem();
       expect(os.name, OperatingSystem.UnknownOS.name);
       expect(os.isMac, false);

@@ -23,7 +23,7 @@ class OperatingSystem {
         orElse: () => UnknownOS);
   }
 
-  static OperatingSystem UnknownOS = new OperatingSystem('Unknown', null);
+  static OperatingSystem UnknownOS = OperatingSystem('Unknown', null);
 
   final String name;
   final Function _matchesNavigator;
@@ -39,21 +39,19 @@ class OperatingSystem {
   get isWindows => this == windows;
 }
 
-OperatingSystem linux =
-    new OperatingSystem('Linux', (NavigatorProvider navigator) {
+OperatingSystem linux = OperatingSystem('Linux', (NavigatorProvider navigator) {
   return navigator.appVersion.contains('Linux');
 });
 
-OperatingSystem mac = new OperatingSystem('Mac', (NavigatorProvider navigator) {
+OperatingSystem mac = OperatingSystem('Mac', (NavigatorProvider navigator) {
   return navigator.appVersion.contains('Mac');
 });
 
-OperatingSystem unix =
-    new OperatingSystem('Unix', (NavigatorProvider navigator) {
+OperatingSystem unix = OperatingSystem('Unix', (NavigatorProvider navigator) {
   return navigator.appVersion.contains('X11');
 });
 
 OperatingSystem windows =
-    new OperatingSystem('Windows', (NavigatorProvider navigator) {
+    OperatingSystem('Windows', (NavigatorProvider navigator) {
   return navigator.appVersion.contains('Win');
 });

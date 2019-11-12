@@ -18,7 +18,7 @@ void main() {
 
     void sharedSetup() {
       calls = [];
-      fakeRootNode = new DivElement();
+      fakeRootNode = DivElement();
     }
 
     tearDown(() {
@@ -77,7 +77,7 @@ void main() {
     group('should identify feature support:', () {
       void assertFakeRootNode() {
         if (fakeRootNode == null) {
-          throw new AssertionError(
+          throw AssertionError(
               '`fakeRootNodeClasses` must be set before calling `verifyDistinctFeatureCssClasses`.');
         }
       }
@@ -108,7 +108,7 @@ void main() {
           // 1. Ensure that its there
           expect(
               fakeRootNode.classes,
-              contains(matches(new RegExp(
+              contains(matches(RegExp(
                   '($featureSupportNegationClassPrefix)*${features[i].name}'))));
         }
 
@@ -129,14 +129,14 @@ void main() {
 
       group('custom features provided by the consumer', () {
         Feature uniqueConsumerFeature =
-            new Feature('canvas', new CanvasElement().context2D != null);
+            Feature('canvas', CanvasElement().context2D != null);
         List<Feature> consumerFeaturesThatContainsNoDefaults = [
           uniqueConsumerFeature
         ];
         List<Feature> consumerFeaturesThatMatchesDefaults =
-            new List.from(defaultFeatureCssClassDecorators);
+            List.from(defaultFeatureCssClassDecorators);
         List<Feature> consumerFeaturesThatContainsDefaults =
-            new List.from(defaultFeatureCssClassDecorators)
+            List.from(defaultFeatureCssClassDecorators)
               ..add(uniqueConsumerFeature);
 
         group(
@@ -148,9 +148,8 @@ void main() {
                 rootNode: fakeRootNode,
                 callback: callback);
 
-            verifyFeatureCssClasses(
-                new List.from(defaultFeatureCssClassDecorators)
-                  ..addAll(consumerFeaturesThatContainsNoDefaults));
+            verifyFeatureCssClasses(List.from(defaultFeatureCssClassDecorators)
+              ..addAll(consumerFeaturesThatContainsNoDefaults));
           });
 
           test('and `includeDefaults` is set to `false`', () {

@@ -40,11 +40,11 @@ class Feature {
   /// Related: [msTouchEvents]
   ///
   /// See: [TouchEvent.supported]
-  static final Feature touchEvents = new Feature('touch', TouchEvent.supported);
+  static final Feature touchEvents = Feature('touch', TouchEvent.supported);
 
   /// Whether the internet explorer browser supports touch events.
   ///
   /// Related: [touchEvents]
-  static final Feature msTouchEvents = new Feature('mstouch',
+  static final Feature msTouchEvents = Feature('mstouch',
       browser.isInternetExplorer && window.navigator.maxTouchPoints > 1);
 }
