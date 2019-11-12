@@ -42,8 +42,21 @@ class Feature {
   ///
   /// Related: [msTouchEvents]
   ///
-  /// See: [TouchEvent.supported]
-  static final Feature touchEvents = Feature('touch', TouchEvent.supported);
+  /// As of Dart 2.5.0, [TouchEvent.supported] is always true on Chrome 70+,
+  /// even on non-touch devices.
+  ///
+  /// This feature checks whether maxTouchPoints is greater than 0
+  /// (if it exists, falling back to TouchEvent.supported),
+  /// which is the recommended way to check for touch screens.
+  ///
+  /// See:
+  /// - https://www.chromestatus.com/feature/4764225348042752
+  /// - https://github.com/dart-lang/sdk/commit/3a7101e16b48b67fc0a832444b06e79a169bce86
+  static final Feature touchEvents = Feature(
+      'touch',
+      window.navigator.maxTouchPoints != null
+          ? window.navigator.maxTouchPoints > 0
+          : TouchEvent.supported);
 
   /// Whether the internet explorer browser supports touch events.
   ///
