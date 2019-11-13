@@ -75,7 +75,7 @@ void _parseTestValues() {
   InputElement testAppNameInput = querySelector('#$testAppNameId');
   InputElement testUserAgentInput = querySelector('#$testUserAgentId');
 
-  var navigator = new TestNavigator();
+  var navigator = TestNavigator();
   navigator.vendor = testVendorInput.value.trim();
   navigator.appVersion = testAppVersionInput.value.trim();
   navigator.appName = testAppNameInput.value.trim();

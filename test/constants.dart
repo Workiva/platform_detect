@@ -51,7 +51,7 @@ TestNavigator testChrome({
   appName = chromeAppNameTestString,
   vendor = chromeVendorTestString,
 }) {
-  return new TestNavigator()
+  return TestNavigator()
     ..userAgent = userAgent
     ..appVersion = appVersion
     ..appName = appName
@@ -64,7 +64,7 @@ TestNavigator testChromeless({
   appName = chromeAppNameTestString,
   vendor = chromeVendorTestString,
 }) {
-  return new TestNavigator()
+  return TestNavigator()
     ..userAgent = chromelessUserAgentTestString
     ..appVersion = chromelessAppVersionTestString
     ..appName = appName
@@ -77,7 +77,7 @@ TestNavigator testFirefox({
   appName = firefoxAppNameTestString,
   vendor = firefoxVendorTestString,
 }) {
-  return new TestNavigator()
+  return TestNavigator()
     ..userAgent = userAgent
     ..appVersion = appVersion
     ..appName = appName
@@ -90,7 +90,7 @@ TestNavigator testInternetExplorer({
   appName = ieAppNameTestString,
   vendor = ieVendorTestString,
 }) {
-  return new TestNavigator()
+  return TestNavigator()
     ..userAgent = userAgent
     ..appVersion = appVersion
     ..appName = appName
@@ -103,7 +103,7 @@ TestNavigator testSafari({
   appName = safariAppNameTestString,
   vendor = safariVendorTestString,
 }) {
-  return new TestNavigator()
+  return TestNavigator()
     ..userAgent = userAgent
     ..appVersion = appVersion
     ..appName = appName
@@ -116,7 +116,7 @@ TestNavigator testWkWebView({
   appName = wkWebViewAppNameTestString,
   vendor = wkWebViewVendorTestString,
 }) {
-  return new TestNavigator()
+  return TestNavigator()
     ..userAgent = userAgent
     ..appVersion = appVersion
     ..appName = appName

@@ -38,7 +38,7 @@ Browser _browser;
 /// Current browser info
 Browser get browser {
   if (_browser == null) {
-    Browser.navigator = new _HtmlNavigator();
+    Browser.navigator = _HtmlNavigator();
     _browser = Browser.getCurrentBrowser();
   }
 
@@ -50,7 +50,7 @@ OperatingSystem _operatingSystem;
 /// Current operating system info
 OperatingSystem get operatingSystem {
   if (_operatingSystem == null) {
-    OperatingSystem.navigator = new _HtmlNavigator();
+    OperatingSystem.navigator = _HtmlNavigator();
     _operatingSystem = OperatingSystem.getCurrentOperatingSystem();
   }
 
