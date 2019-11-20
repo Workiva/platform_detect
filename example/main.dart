@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+
 import 'dart:html';
 import 'package:platform_detect/platform_detect.dart';
 import 'package:platform_detect/src/decorator.dart';
@@ -75,7 +77,7 @@ void _parseTestValues() {
   InputElement testAppNameInput = querySelector('#$testAppNameId');
   InputElement testUserAgentInput = querySelector('#$testUserAgentId');
 
-  var navigator = new TestNavigator();
+  var navigator = TestNavigator();
   navigator.vendor = testVendorInput.value.trim();
   navigator.appVersion = testAppVersionInput.value.trim();
   navigator.appName = testAppNameInput.value.trim();

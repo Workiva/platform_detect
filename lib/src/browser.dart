@@ -28,13 +28,13 @@ class Browser {
   @visibleForTesting
   clearVersion() => _version = null;
 
-  static Browser UnknownBrowser = new Browser('Unknown', null, null);
+  static Browser UnknownBrowser = Browser('Unknown', null, null);
 
   Browser(this.name, bool matchesNavigator(NavigatorProvider navigator),
       Version parseVersion(NavigatorProvider navigator),
       {this.className})
-      : this._matchesNavigator = matchesNavigator,
-        this._parseVersion = parseVersion;
+      : _matchesNavigator = matchesNavigator,
+        _parseVersion = parseVersion;
 
   final String name;
 
@@ -50,7 +50,7 @@ class Browser {
       if (_parseVersion != null) {
         _version = _parseVersion(Browser.navigator);
       } else {
-        _version = new Version(0, 0, 0);
+        _version = Version(0, 0, 0);
       }
     }
 
@@ -72,11 +72,11 @@ class Browser {
   bool get isWKWebView => this == wkWebView;
 }
 
-Browser chrome = new _Chrome();
-Browser firefox = new _Firefox();
-Browser safari = new _Safari();
-Browser internetExplorer = new _InternetExplorer();
-Browser wkWebView = new _WKWebView();
+Browser chrome = _Chrome();
+Browser firefox = _Firefox();
+Browser safari = _Safari();
+Browser internetExplorer = _InternetExplorer();
+Browser wkWebView = _WKWebView();
 
 class _Chrome extends Browser {
   _Chrome() : super('Chrome', _isChrome, _getVersion);
@@ -87,16 +87,16 @@ class _Chrome extends Browser {
   }
 
   static Version _getVersion(NavigatorProvider navigator) {
-    Match match = new RegExp(r"Chrome/(\d+)\.(\d+)\.(\d+)\.(\d+)\s")
+    Match match = RegExp(r"Chrome/(\d+)\.(\d+)\.(\d+)\.(\d+)\s")
         .firstMatch(navigator.appVersion);
     if (match != null) {
       var major = int.parse(match.group(1));
       var minor = int.parse(match.group(2));
       var patch = int.parse(match.group(3));
       var build = match.group(4);
-      return new Version(major, minor, patch, build: build);
+      return Version(major, minor, patch, build: build);
     } else {
-      return new Version(0, 0, 0);
+      return Version(0, 0, 0);
     }
   }
 }
@@ -109,11 +109,10 @@ class _Firefox extends Browser {
   }
 
   static Version _getVersion(NavigatorProvider navigator) {
-    Match match =
-        new RegExp(r'rv:(\d+)\.(\d+)\)').firstMatch(navigator.userAgent);
+    Match match = RegExp(r'rv:(\d+)\.(\d+)\)').firstMatch(navigator.userAgent);
     var major = int.parse(match.group(1));
     var minor = int.parse(match.group(2));
-    return new Version(major, minor, 0);
+    return Version(major, minor, 0);
   }
 }
 
@@ -129,13 +128,13 @@ class _Safari extends Browser {
   }
 
   static Version _getVersion(NavigatorProvider navigator) {
-    Match match = new RegExp(r'Version/(\d+)(\.(\d+))?(\.(\d+))?')
+    Match match = RegExp(r'Version/(\d+)(\.(\d+))?(\.(\d+))?')
         .firstMatch(navigator.appVersion);
     var major = int.parse(match.group(1));
     var minor = int.parse(match.group(3) ?? '0');
     var patch = int.parse(match.group(5) ?? '0');
 
-    return new Version(major, minor, patch);
+    return Version(major, minor, patch);
   }
 }
 
@@ -151,12 +150,12 @@ class _WKWebView extends Browser {
   }
 
   static Version _getVersion(NavigatorProvider navigator) {
-    Match match = new RegExp(r'AppleWebKit/(\d+)\.(\d+)\.(\d+)')
+    Match match = RegExp(r'AppleWebKit/(\d+)\.(\d+)\.(\d+)')
         .firstMatch(navigator.appVersion);
     var major = int.parse(match.group(1));
     var minor = int.parse(match.group(2));
     var patch = int.parse(match.group(3));
-    return new Version(major, minor, patch);
+    return Version(major, minor, patch);
   }
 }
 
@@ -173,27 +172,27 @@ class _InternetExplorer extends Browser {
 
   static Version _getVersion(NavigatorProvider navigator) {
     Match match =
-        new RegExp(r'MSIE (\d+)\.(\d+);').firstMatch(navigator.appVersion);
+        RegExp(r'MSIE (\d+)\.(\d+);').firstMatch(navigator.appVersion);
     if (match != null) {
       var major = int.parse(match.group(1));
       var minor = int.parse(match.group(2));
-      return new Version(major, minor, 0);
+      return Version(major, minor, 0);
     }
 
-    match = new RegExp(r'rv[: ](\d+)\.(\d+)').firstMatch(navigator.appVersion);
+    match = RegExp(r'rv[: ](\d+)\.(\d+)').firstMatch(navigator.appVersion);
     if (match != null) {
       var major = int.parse(match.group(1));
       var minor = int.parse(match.group(2));
-      return new Version(major, minor, 0);
+      return Version(major, minor, 0);
     }
 
-    match = new RegExp(r'Edge/(\d+)\.(\d+)$').firstMatch(navigator.appVersion);
+    match = RegExp(r'Edge/(\d+)\.(\d+)$').firstMatch(navigator.appVersion);
     if (match != null) {
       var major = int.parse(match.group(1));
       var minor = int.parse(match.group(2));
-      return new Version(major, minor, 0);
+      return Version(major, minor, 0);
     }
 
-    return new Version(0, 0, 0);
+    return Version(0, 0, 0);
   }
 }

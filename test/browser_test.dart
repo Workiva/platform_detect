@@ -16,7 +16,7 @@ void main() {
     });
 
     test('Unknown Browser', () {
-      Browser.navigator = new TestNavigator();
+      Browser.navigator = TestNavigator();
       browser = Browser.getCurrentBrowser();
       expect(browser.name, Browser.UnknownBrowser.name);
       expect(browser.version, Browser.UnknownBrowser.version);
@@ -27,9 +27,9 @@ void main() {
     });
 
     test('Fake Browser', () {
-      browser = new Browser('Fake', (_) => true, (_) => new Version(1, 1, 0));
+      browser = Browser('Fake', (_) => true, (_) => Version(1, 1, 0));
       expect(browser.name, 'Fake');
-      expect(browser.version, new Version(1, 1, 0));
+      expect(browser.version, Version(1, 1, 0));
       expect(browser.isChrome, false);
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
@@ -45,7 +45,7 @@ void main() {
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, false);
-      expect(browser.version, new Version(53, 0, 2785, build: '143'));
+      expect(browser.version, Version(53, 0, 2785, build: '143'));
     });
 
     test('Chromeless', () {
@@ -56,7 +56,7 @@ void main() {
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, false);
-      expect(browser.version, new Version(0, 0, 0));
+      expect(browser.version, Version(0, 0, 0));
     });
 
     test('Internet Explorer', () {
@@ -68,7 +68,7 @@ void main() {
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, true);
-      expect(browser.version, new Version(11, 0, 0));
+      expect(browser.version, Version(11, 0, 0));
     });
 
     test('Firefox', () {
@@ -80,7 +80,7 @@ void main() {
       expect(browser.isFirefox, true);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, false);
-      expect(browser.version, new Version(48, 0, 0));
+      expect(browser.version, Version(48, 0, 0));
     });
 
     group('Safari', () {
@@ -97,7 +97,7 @@ void main() {
         expect(browser.isFirefox, false);
         expect(browser.isSafari, true);
         expect(browser.isInternetExplorer, false);
-        expect(browser.version, new Version(9, 1, 3));
+        expect(browser.version, Version(9, 1, 3));
       });
 
       test('major and minor version', () {
@@ -112,7 +112,7 @@ void main() {
         expect(browser.isFirefox, false);
         expect(browser.isSafari, true);
         expect(browser.isInternetExplorer, false);
-        expect(browser.version, new Version(10, 1, 0));
+        expect(browser.version, Version(10, 1, 0));
       });
 
       test('only a major version', () {
@@ -127,7 +127,7 @@ void main() {
         expect(browser.isFirefox, false);
         expect(browser.isSafari, true);
         expect(browser.isInternetExplorer, false);
-        expect(browser.version, new Version(11, 0, 0));
+        expect(browser.version, Version(11, 0, 0));
       });
     });
 
@@ -141,7 +141,7 @@ void main() {
       expect(browser.isSafari, false);
       expect(browser.isWKWebView, true);
       expect(browser.isInternetExplorer, false);
-      expect(browser.version, new Version(601, 7, 8));
+      expect(browser.version, Version(601, 7, 8));
     });
   });
 }
