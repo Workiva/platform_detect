@@ -1,4 +1,4 @@
-FROM drydock-prod.workiva.net/workiva/dart_build_image:1
+FROM drydock.workiva.net/workiva/dart_build_image:test_dart_2.6.1-latest
 
 WORKDIR /build
 
