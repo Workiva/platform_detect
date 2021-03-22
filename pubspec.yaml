@@ -1,19 +1,19 @@
 name: platform_detect
-version: 1.4.0
+version: 2.0.0-nullsafety.0
 description: A lightweight library for detecting the running browser and OS
 author: Workiva Client Platform Team <team-clientplatform@workiva.com>
 homepage: https://github.com/Workiva/platform_detect
 documentation: https://www.dartdocs.org/documentation/platform_detect/latest
 
 environment:
-  sdk: '>=2.4.0 <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  meta: ^1.0.4
-  pub_semver: ^1.4.2
+  meta: ^1.3.0
+  pub_semver: ^2.0.0
 
 dev_dependencies:
-  build_runner: ^1.7.1
-  build_test: ^0.10.9
-  build_web_compilers: ^2.5.1
-  test: ^1.9.1
+  build_runner: ^1.12.0
+  build_test: ^2.0.0
+  build_web_compilers: ^2.16.0
+  test: ^1.16.0
