@@ -9,11 +9,11 @@ import 'package:platform_detect/src/support.dart';
 
 void main() {
   group('root node CSS class injection', () {
-    Element fakeRootNode;
-    List calls;
+    Element? fakeRootNode;
+    List? calls;
 
     void callback() {
-      calls.add('callback');
+      calls?.add('callback');
     }
 
     void sharedSetup() {
@@ -44,19 +44,19 @@ void main() {
       });
 
       test('should identify the operating system', () {
-        expect(fakeRootNode.classes,
+        expect(fakeRootNode?.classes,
             contains('os-${nameToClassName(operatingSystem.name)}'));
       });
 
       group('should identify the browser', () {
         test('', () {
-          expect(fakeRootNode.classes,
+          expect(fakeRootNode?.classes,
               contains('ua-${nameToClassName(browser.name)}'));
         });
 
         test('major version', () {
           expect(
-              fakeRootNode.classes,
+              fakeRootNode?.classes,
               contains(
                   'ua-${nameToClassName(browser.name)}${browser.version.major}'));
         });
@@ -65,7 +65,7 @@ void main() {
           for (var i = nextVersion;
               i < nextVersion + decoratedNextVersionCount;
               i++) {
-            expect(fakeRootNode.classes,
+            expect(fakeRootNode?.classes,
                 contains('ua-lt-${nameToClassName(browser.name)}$i'));
           }
         });
@@ -85,7 +85,7 @@ void main() {
       void verifyDistinctFeatureCssClasses(List<Feature> features) {
         assertFakeRootNode();
 
-        String allCssClasses = fakeRootNode.classes.toString();
+        String? allCssClasses = fakeRootNode?.classes.toString();
         List<String> featureCssClasses =
             getFeatureSupportClasses(features).split(' ');
 
@@ -94,9 +94,9 @@ void main() {
           var negationClassName =
               '$featureSupportNegationClassPrefix-${features[i].name}';
 
-          expect(allCssClasses.allMatches(affirmativeClassName),
+          expect(allCssClasses?.allMatches(affirmativeClassName),
               hasLength(lessThan(2)));
-          expect(allCssClasses.allMatches(negationClassName),
+          expect(allCssClasses?.allMatches(negationClassName),
               hasLength(lessThan(2)));
         }
       }
@@ -107,7 +107,7 @@ void main() {
         for (var i = 0; i < features.length; i++) {
           // 1. Ensure that its there
           expect(
-              fakeRootNode.classes,
+              fakeRootNode?.classes,
               contains(matches(RegExp(
                   '($featureSupportNegationClassPrefix)*${features[i].name}'))));
         }
@@ -129,6 +129,10 @@ void main() {
 
       group('custom features provided by the consumer', () {
         Feature uniqueConsumerFeature =
+            // note(lejard-h)
+            // native JS API is never null
+            // but not sure how we are supppose to check if canvas is supported
+            // ignore: unnecessary_null_comparison
             Feature('canvas', CanvasElement().context2D != null);
         List<Feature> consumerFeaturesThatContainsNoDefaults = [
           uniqueConsumerFeature

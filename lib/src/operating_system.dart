@@ -15,20 +15,26 @@ import 'package:platform_detect/src/navigator.dart';
 
 /// Matches an operating system name with how it is represented in window.navigator
 class OperatingSystem {
-  static NavigatorProvider navigator;
+  static NavigatorProvider? navigator;
 
   static OperatingSystem getCurrentOperatingSystem() {
     return _knownSystems.firstWhere(
-        (system) => system._matchesNavigator(navigator),
-        orElse: () => UnknownOS);
+      (system) {
+        final matcher = system._matchesNavigator;
+        if (matcher == null) return false;
+        return matcher(navigator);
+      },
+      orElse: () => UnknownOS,
+    );
   }
 
   static OperatingSystem UnknownOS = OperatingSystem('Unknown', null);
 
   final String name;
-  final Function _matchesNavigator;
+  final bool Function(NavigatorProvider? navigator)? _matchesNavigator;
 
-  OperatingSystem(this.name, bool matchesNavigator(NavigatorProvider navigator))
+  OperatingSystem(
+      this.name, bool Function(NavigatorProvider? navigator)? matchesNavigator)
       : _matchesNavigator = matchesNavigator;
 
   static List<OperatingSystem> _knownSystems = [mac, windows, linux, unix];
@@ -39,19 +45,24 @@ class OperatingSystem {
   get isWindows => this == windows;
 }
 
-OperatingSystem linux = OperatingSystem('Linux', (NavigatorProvider navigator) {
+OperatingSystem linux =
+    OperatingSystem('Linux', (NavigatorProvider? navigator) {
+  if (navigator == null) return false;
   return navigator.appVersion.contains('Linux');
 });
 
-OperatingSystem mac = OperatingSystem('Mac', (NavigatorProvider navigator) {
+OperatingSystem mac = OperatingSystem('Mac', (NavigatorProvider? navigator) {
+  if (navigator == null) return false;
   return navigator.appVersion.contains('Mac');
 });
 
-OperatingSystem unix = OperatingSystem('Unix', (NavigatorProvider navigator) {
+OperatingSystem unix = OperatingSystem('Unix', (NavigatorProvider? navigator) {
+  if (navigator == null) return false;
   return navigator.appVersion.contains('X11');
 });
 
 OperatingSystem windows =
-    OperatingSystem('Windows', (NavigatorProvider navigator) {
+    OperatingSystem('Windows', (NavigatorProvider? navigator) {
+  if (navigator == null) return false;
   return navigator.appVersion.contains('Win');
 });

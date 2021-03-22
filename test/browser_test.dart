@@ -7,17 +7,17 @@ import 'package:platform_detect/src/navigator.dart';
 import './constants.dart';
 
 void main() {
-  Browser browser;
+  Browser? _browser;
 
   group('browser detects', () {
     tearDown(() {
-      browser?.clearVersion();
+      _browser?.clearVersion();
       Browser.navigator = null;
     });
 
     test('Unknown Browser', () {
       Browser.navigator = TestNavigator();
-      browser = Browser.getCurrentBrowser();
+      final browser = _browser = Browser.getCurrentBrowser();
       expect(browser.name, Browser.UnknownBrowser.name);
       expect(browser.version, Browser.UnknownBrowser.version);
       expect(browser.isChrome, false);
@@ -27,7 +27,8 @@ void main() {
     });
 
     test('Fake Browser', () {
-      browser = Browser('Fake', (_) => true, (_) => Version(1, 1, 0));
+      final browser =
+          _browser = Browser('Fake', (_) => true, (_) => Version(1, 1, 0));
       expect(browser.name, 'Fake');
       expect(browser.version, Version(1, 1, 0));
       expect(browser.isChrome, false);
@@ -38,7 +39,7 @@ void main() {
 
     test('Chrome', () {
       Browser.navigator = testChrome();
-      browser = Browser.getCurrentBrowser();
+      final browser = _browser = Browser.getCurrentBrowser();
 
       expect(browser.name, 'Chrome');
       expect(browser.isChrome, true);
@@ -50,7 +51,7 @@ void main() {
 
     test('Chromeless', () {
       Browser.navigator = testChromeless();
-      browser = Browser.getCurrentBrowser();
+      final browser = _browser = Browser.getCurrentBrowser();
       expect(browser.name, 'Chrome');
       expect(browser.isChrome, true);
       expect(browser.isFirefox, false);
@@ -61,7 +62,7 @@ void main() {
 
     test('Internet Explorer', () {
       Browser.navigator = testInternetExplorer();
-      browser = Browser.getCurrentBrowser();
+      final browser = _browser = Browser.getCurrentBrowser();
 
       expect(browser.name, 'Internet Explorer');
       expect(browser.isChrome, false);
@@ -73,7 +74,7 @@ void main() {
 
     test('Firefox', () {
       Browser.navigator = testFirefox();
-      browser = Browser.getCurrentBrowser();
+      final browser = _browser = Browser.getCurrentBrowser();
 
       expect(browser.name, 'Firefox');
       expect(browser.isChrome, false);
@@ -90,7 +91,7 @@ void main() {
 
       test('major, minor and patch version', () {
         Browser.navigator = testSafari();
-        browser = Browser.getCurrentBrowser();
+        final browser = _browser = Browser.getCurrentBrowser();
 
         expect(browser.name, 'Safari');
         expect(browser.isChrome, false);
@@ -104,7 +105,7 @@ void main() {
         Browser.navigator = testSafari(
             userAgent: safariUserAgentWithoutPatchTestString,
             appVersion: safariAppVersionWithoutPatchTestString);
-        browser = Browser.getCurrentBrowser();
+        final browser = _browser = Browser.getCurrentBrowser();
         browser.clearVersion();
 
         expect(browser.name, 'Safari');
@@ -119,7 +120,7 @@ void main() {
         Browser.navigator = testSafari(
             userAgent: safariUserAgentWithoutMinorTestString,
             appVersion: safariAppVersionWithoutMinorTestString);
-        browser = Browser.getCurrentBrowser();
+        final browser = _browser = Browser.getCurrentBrowser();
         browser.clearVersion();
 
         expect(browser.name, 'Safari');
@@ -133,7 +134,7 @@ void main() {
 
     test('WKWebView', () {
       Browser.navigator = testWkWebView();
-      browser = Browser.getCurrentBrowser();
+      final browser = _browser = Browser.getCurrentBrowser();
 
       expect(browser.name, 'WKWebView');
       expect(browser.isChrome, false);
