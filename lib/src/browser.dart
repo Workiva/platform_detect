@@ -17,11 +17,11 @@ import 'package:platform_detect/src/navigator.dart';
 
 /// Matches a browser name with how it is represented in window.navigator
 class Browser {
-  static NavigatorProvider navigator;
+  static NavigatorProvider? navigator;
 
   static Browser getCurrentBrowser() {
     return _knownBrowsers.firstWhere(
-        (browser) => browser._matchesNavigator(navigator),
+        (browser) => browser._matchesNavigator!(navigator),
         orElse: () => UnknownBrowser);
   }
 
@@ -30,8 +30,8 @@ class Browser {
 
   static Browser UnknownBrowser = Browser('Unknown', null, null);
 
-  Browser(this.name, bool matchesNavigator(NavigatorProvider navigator),
-      Version parseVersion(NavigatorProvider navigator),
+  Browser(this.name, bool matchesNavigator(NavigatorProvider navigator)?,
+      Version parseVersion(NavigatorProvider navigator)?,
       {this.className})
       : _matchesNavigator = matchesNavigator,
         _parseVersion = parseVersion;
@@ -39,30 +39,30 @@ class Browser {
   final String name;
 
   /// The CSS class value that should be used instead of lowercase [name] (optional).
-  final String className;
-  final Function _matchesNavigator;
-  final Function _parseVersion;
+  final String? className;
+  final Function? _matchesNavigator;
+  final Function? _parseVersion;
 
-  Version _version;
+  Version? _version;
 
   Version get version {
     if (_version == null) {
       if (_parseVersion != null) {
-        _version = _parseVersion(Browser.navigator);
+        _version = _parseVersion!(Browser.navigator ?? TestNavigator());
       } else {
         _version = Version(0, 0, 0);
       }
     }
 
-    return _version;
+    return _version!;
   }
 
   static List<Browser> _knownBrowsers = [
-    chrome,
+    internetExplorer,
     firefox,
     safari,
-    internetExplorer,
-    wkWebView
+    wkWebView,
+    chrome,
   ];
 
   bool get isChrome => this == chrome;
@@ -83,16 +83,16 @@ class _Chrome extends Browser {
 
   static bool _isChrome(NavigatorProvider navigator) {
     var vendor = navigator.vendor;
-    return vendor != null && vendor.contains('Google');
+    return vendor.contains('Google');
   }
 
   static Version _getVersion(NavigatorProvider navigator) {
-    Match match = RegExp(r"Chrome/(\d+)\.(\d+)\.(\d+)\.(\d+)\s")
+    Match? match = RegExp(r"Chrome/(\d+)\.(\d+)\.(\d+)\.(\d+)\s")
         .firstMatch(navigator.appVersion);
     if (match != null) {
-      var major = int.parse(match.group(1));
-      var minor = int.parse(match.group(2));
-      var patch = int.parse(match.group(3));
+      var major = int.parse(match.group(1)!);
+      var minor = int.parse(match.group(2)!);
+      var patch = int.parse(match.group(3)!);
       var build = match.group(4);
       return Version(major, minor, patch, build: build);
     } else {
@@ -109,9 +109,9 @@ class _Firefox extends Browser {
   }
 
   static Version _getVersion(NavigatorProvider navigator) {
-    Match match = RegExp(r'rv:(\d+)\.(\d+)\)').firstMatch(navigator.userAgent);
-    var major = int.parse(match.group(1));
-    var minor = int.parse(match.group(2));
+    Match match = RegExp(r'rv:(\d+)\.(\d+)\)').firstMatch(navigator.userAgent)!;
+    var major = int.parse(match.group(1)!);
+    var minor = int.parse(match.group(2)!);
     return Version(major, minor, 0);
   }
 }
@@ -122,15 +122,13 @@ class _Safari extends Browser {
   static bool _isSafari(NavigatorProvider navigator) {
     // An web view running in an iOS app does not have a 'Version/X.X.X' string in the appVersion
     var vendor = navigator.vendor;
-    return vendor != null &&
-        vendor.contains('Apple') &&
-        navigator.appVersion.contains('Version');
+    return vendor.contains('Apple') && navigator.appVersion.contains('Version');
   }
 
   static Version _getVersion(NavigatorProvider navigator) {
     Match match = RegExp(r'Version/(\d+)(\.(\d+))?(\.(\d+))?')
-        .firstMatch(navigator.appVersion);
-    var major = int.parse(match.group(1));
+        .firstMatch(navigator.appVersion)!;
+    var major = int.parse(match.group(1)!);
     var minor = int.parse(match.group(3) ?? '0');
     var patch = int.parse(match.group(5) ?? '0');
 
@@ -144,17 +142,16 @@ class _WKWebView extends Browser {
   static bool _isWKWebView(NavigatorProvider navigator) {
     // An web view running in an iOS app does not have a 'Version/X.X.X' string in the appVersion
     var vendor = navigator.vendor;
-    return vendor != null &&
-        vendor.contains('Apple') &&
+    return vendor.contains('Apple') &&
         !navigator.appVersion.contains('Version');
   }
 
   static Version _getVersion(NavigatorProvider navigator) {
     Match match = RegExp(r'AppleWebKit/(\d+)\.(\d+)\.(\d+)')
-        .firstMatch(navigator.appVersion);
-    var major = int.parse(match.group(1));
-    var minor = int.parse(match.group(2));
-    var patch = int.parse(match.group(3));
+        .firstMatch(navigator.appVersion)!;
+    var major = int.parse(match.group(1)!);
+    var minor = int.parse(match.group(2)!);
+    var patch = int.parse(match.group(3)!);
     return Version(major, minor, patch);
   }
 }
@@ -171,25 +168,25 @@ class _InternetExplorer extends Browser {
   }
 
   static Version _getVersion(NavigatorProvider navigator) {
-    Match match =
+    Match? match =
         RegExp(r'MSIE (\d+)\.(\d+);').firstMatch(navigator.appVersion);
     if (match != null) {
-      var major = int.parse(match.group(1));
-      var minor = int.parse(match.group(2));
+      var major = int.parse(match.group(1)!);
+      var minor = int.parse(match.group(2)!);
       return Version(major, minor, 0);
     }
 
     match = RegExp(r'rv[: ](\d+)\.(\d+)').firstMatch(navigator.appVersion);
     if (match != null) {
-      var major = int.parse(match.group(1));
-      var minor = int.parse(match.group(2));
+      var major = int.parse(match.group(1)!);
+      var minor = int.parse(match.group(2)!);
       return Version(major, minor, 0);
     }
 
     match = RegExp(r'Edge/(\d+)\.(\d+)$').firstMatch(navigator.appVersion);
     if (match != null) {
-      var major = int.parse(match.group(1));
-      var minor = int.parse(match.group(2));
+      var major = int.parse(match.group(1)!);
+      var minor = int.parse(match.group(2)!);
       return Version(major, minor, 0);
     }
 

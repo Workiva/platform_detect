@@ -15,7 +15,8 @@ import 'package:platform_detect/src/navigator.dart';
 
 /// Matches an operating system name with how it is represented in window.navigator
 class OperatingSystem {
-  static NavigatorProvider navigator;
+  // nullable for testability
+  static NavigatorProvider? navigator;
 
   static OperatingSystem getCurrentOperatingSystem() {
     return _knownSystems.firstWhere(
@@ -23,20 +24,28 @@ class OperatingSystem {
         orElse: () => UnknownOS);
   }
 
-  static OperatingSystem UnknownOS = OperatingSystem('Unknown', null);
+  static OperatingSystem UnknownOS = OperatingSystem('Unknown', (n) => false);
 
   final String name;
   final Function _matchesNavigator;
 
-  OperatingSystem(this.name, bool matchesNavigator(NavigatorProvider navigator))
+  OperatingSystem(
+      this.name, bool matchesNavigator(NavigatorProvider navigator) /*!*/)
       : _matchesNavigator = matchesNavigator;
 
-  static List<OperatingSystem> _knownSystems = [mac, windows, linux, unix];
+  static List<OperatingSystem> _knownSystems = [
+    chrome,
+    mac,
+    windows,
+    linux,
+    unix
+  ];
 
   get isLinux => this == linux;
   get isMac => this == mac;
   get isUnix => this == unix;
   get isWindows => this == windows;
+  get isChromeOS => this == chrome;
 }
 
 OperatingSystem linux = OperatingSystem('Linux', (NavigatorProvider navigator) {
@@ -54,4 +63,9 @@ OperatingSystem unix = OperatingSystem('Unix', (NavigatorProvider navigator) {
 OperatingSystem windows =
     OperatingSystem('Windows', (NavigatorProvider navigator) {
   return navigator.appVersion.contains('Win');
+});
+
+OperatingSystem chrome =
+    OperatingSystem('ChromeOS', (NavigatorProvider navigator) {
+  return navigator.appVersion.contains('CrOS');
 });

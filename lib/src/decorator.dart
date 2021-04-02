@@ -111,7 +111,7 @@ bool nodeHasBeenDecorated(Element rootNode) =>
 /// If you do not want [defaultFeatureCssClassDecorators] to be used,
 /// set [includeDefaults] to `false`.
 String getPlatformClasses(
-    {List<Feature> features,
+    {List<Feature>? features,
     bool includeDefaults = true,
     List<String> existingClasses = const []}) {
   var allFeatures = Set<Feature>.from(features ?? []);
@@ -136,10 +136,10 @@ String getPlatformClasses(
 ///
 /// By default, [rootNode] is [document.documentElement].
 void decorateRootNodeWithPlatformClasses(
-    {List<Feature> features,
+    {List<Feature>? features,
     bool includeDefaults = true,
-    Element rootNode,
-    callback()}) {
+    Element? rootNode,
+    callback()?}) {
   rootNode ??= document.documentElement;
 
   if (rootNode != null && !nodeHasBeenDecorated(rootNode)) {

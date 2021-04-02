@@ -55,12 +55,12 @@ class Feature {
   static final Feature touchEvents = Feature(
       'touch',
       window.navigator.maxTouchPoints != null
-          ? window.navigator.maxTouchPoints > 0
+          ? window.navigator.maxTouchPoints! > 0
           : TouchEvent.supported);
 
   /// Whether the internet explorer browser supports touch events.
   ///
   /// Related: [touchEvents]
   static final Feature msTouchEvents = Feature('mstouch',
-      browser.isInternetExplorer && window.navigator.maxTouchPoints > 1);
+      browser.isInternetExplorer && (window.navigator.maxTouchPoints ?? 0) > 1);
 }
