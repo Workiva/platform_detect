@@ -9,7 +9,7 @@ import 'package:platform_detect/src/support.dart';
 
 void main() {
   group('root node CSS class injection', () {
-    Element? fakeRootNode;
+    late Element fakeRootNode;
     List? calls;
 
     void callback() {
@@ -23,7 +23,7 @@ void main() {
 
     tearDown(() {
       calls = null;
-      fakeRootNode = null;
+      // fakeRootNode = null;
     });
 
     group('', () {
@@ -44,19 +44,19 @@ void main() {
       });
 
       test('should identify the operating system', () {
-        expect(fakeRootNode!.classes,
+        expect(fakeRootNode.classes,
             contains('os-${nameToClassName(operatingSystem.name)}'));
       });
 
       group('should identify the browser', () {
         test('', () {
-          expect(fakeRootNode!.classes,
+          expect(fakeRootNode.classes,
               contains('ua-${nameToClassName(browser.name)}'));
         });
 
         test('major version', () {
           expect(
-              fakeRootNode!.classes,
+              fakeRootNode.classes,
               contains(
                   'ua-${nameToClassName(browser.name)}${browser.version.major}'));
         });
@@ -65,7 +65,7 @@ void main() {
           for (var i = nextVersion;
               i < nextVersion + decoratedNextVersionCount;
               i++) {
-            expect(fakeRootNode!.classes,
+            expect(fakeRootNode.classes,
                 contains('ua-lt-${nameToClassName(browser.name)}$i'));
           }
         });
@@ -75,17 +75,10 @@ void main() {
     // TODO: Set up saucelabs and run these tests on actual browsers on which we can assert whether
     // our baked-in feature detection is accurate
     group('should identify feature support:', () {
-      void assertFakeRootNode() {
-        if (fakeRootNode == null) {
-          throw AssertionError(
-              '`fakeRootNodeClasses` must be set before calling `verifyDistinctFeatureCssClasses`.');
-        }
-      }
 
       void verifyDistinctFeatureCssClasses(List<Feature> features) {
-        assertFakeRootNode();
 
-        String allCssClasses = fakeRootNode!.classes.toString();
+        String allCssClasses = fakeRootNode.classes.toString();
         List<String> featureCssClasses =
             getFeatureSupportClasses(features).split(' ');
 
@@ -102,12 +95,11 @@ void main() {
       }
 
       void verifyFeatureCssClasses(List<Feature> features) {
-        assertFakeRootNode();
 
         for (var i = 0; i < features.length; i++) {
           // 1. Ensure that its there
           expect(
-              fakeRootNode!.classes,
+              fakeRootNode.classes,
               contains(matches(RegExp(
                   '($featureSupportNegationClassPrefix)*${features[i].name}'))));
         }
