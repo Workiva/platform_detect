@@ -21,8 +21,7 @@ void main() {
       fakeRootNode = DivElement();
     }
 
-    tearDown(() {
-    });
+    tearDown(() {});
 
     group('', () {
       setUp(() {
@@ -73,9 +72,7 @@ void main() {
     // TODO: Set up saucelabs and run these tests on actual browsers on which we can assert whether
     // our baked-in feature detection is accurate
     group('should identify feature support:', () {
-
       void verifyDistinctFeatureCssClasses(List<Feature> features) {
-
         String allCssClasses = fakeRootNode.classes.toString();
         List<String> featureCssClasses =
             getFeatureSupportClasses(features).split(' ');
@@ -93,7 +90,6 @@ void main() {
       }
 
       void verifyFeatureCssClasses(List<Feature> features) {
-
         for (var i = 0; i < features.length; i++) {
           // 1. Ensure that its there
           expect(
