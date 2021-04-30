@@ -13,6 +13,4 @@ ARG GIT_BRANCH
 
 RUN pub get
 
-ARG BUILD_ARTIFACTS_DART_PUBSPECLOCK=/build/pubspec.lock
-
 FROM scratch
