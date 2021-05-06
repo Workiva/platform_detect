@@ -21,7 +21,7 @@ class Browser {
 
   static Browser getCurrentBrowser() {
     return _knownBrowsers.firstWhere(
-        (browser) => browser.matchesNavigator(navigator),
+        (browser) => browser._matchesNavigator(navigator),
         orElse: () => UnknownBrowser);
   }
 
@@ -31,21 +31,21 @@ class Browser {
   static Browser UnknownBrowser =
       Browser('Unknown', (_) => false, (_) => Version(0, 0, 0));
 
-  Browser(this.name, bool this.matchesNavigator(NavigatorProvider navigator),
-      Version this.parseVersion(NavigatorProvider navigator),
+  Browser(this.name, bool this._matchesNavigator(NavigatorProvider navigator),
+      Version this._parseVersion(NavigatorProvider navigator),
       {this.className = ''});
 
   final String name;
 
   /// The CSS class value that should be used instead of lowercase [name] (optional).
   final String className;
-  final Function matchesNavigator;
-  final Function parseVersion;
+  final Function _matchesNavigator;
+  final Function _parseVersion;
 
   Version? _version;
 
   Version get version =>
-      _version ??= parseVersion(Browser.navigator ?? TestNavigator());
+      _version ??= _parseVersion(Browser.navigator ?? TestNavigator());
 
   static List<Browser> _knownBrowsers = [
     internetExplorer,

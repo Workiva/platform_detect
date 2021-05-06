@@ -29,7 +29,8 @@ class OperatingSystem {
   final String name;
   final Function _matchesNavigator;
 
-  OperatingSystem(this.name, bool this._matchesNavigator(NavigatorProvider navigator));
+  OperatingSystem(
+      this.name, bool this._matchesNavigator(NavigatorProvider navigator));
 
   static List<OperatingSystem> _knownSystems = [
     chrome,
