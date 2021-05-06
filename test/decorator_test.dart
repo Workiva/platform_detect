@@ -9,8 +9,8 @@ import 'package:platform_detect/src/support.dart';
 
 void main() {
   group('root node CSS class injection', () {
-    Element fakeRootNode;
-    List calls;
+    late Element fakeRootNode;
+    late List calls;
 
     void callback() {
       calls.add('callback');
@@ -20,11 +20,6 @@ void main() {
       calls = [];
       fakeRootNode = DivElement();
     }
-
-    tearDown(() {
-      calls = null;
-      fakeRootNode = null;
-    });
 
     group('', () {
       setUp(() {
@@ -75,16 +70,11 @@ void main() {
     // TODO: Set up saucelabs and run these tests on actual browsers on which we can assert whether
     // our baked-in feature detection is accurate
     group('should identify feature support:', () {
-      void assertFakeRootNode() {
-        if (fakeRootNode == null) {
-          throw AssertionError(
-              '`fakeRootNodeClasses` must be set before calling `verifyDistinctFeatureCssClasses`.');
-        }
-      }
+      setUp(() {
+        sharedSetup();
+      });
 
       void verifyDistinctFeatureCssClasses(List<Feature> features) {
-        assertFakeRootNode();
-
         String allCssClasses = fakeRootNode.classes.toString();
         List<String> featureCssClasses =
             getFeatureSupportClasses(features).split(' ');
@@ -102,8 +92,6 @@ void main() {
       }
 
       void verifyFeatureCssClasses(List<Feature> features) {
-        assertFakeRootNode();
-
         for (var i = 0; i < features.length; i++) {
           // 1. Ensure that its there
           expect(
@@ -115,10 +103,6 @@ void main() {
         // 2. Ensure that there is only one
         verifyDistinctFeatureCssClasses(features);
       }
-
-      setUp(() {
-        sharedSetup();
-      });
 
       test('default features', () {
         decorateRootNodeWithPlatformClasses(

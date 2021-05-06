@@ -7,11 +7,11 @@ import 'package:platform_detect/src/navigator.dart';
 import './constants.dart';
 
 void main() {
-  Browser browser;
+  late Browser browser;
 
   group('browser detects', () {
     tearDown(() {
-      browser?.clearVersion();
+      browser.clearVersion();
       Browser.navigator = null;
     });
 
@@ -51,6 +51,7 @@ void main() {
     test('Chromeless', () {
       Browser.navigator = testChromeless();
       browser = Browser.getCurrentBrowser();
+
       expect(browser.name, 'Chrome');
       expect(browser.isChrome, true);
       expect(browser.isFirefox, false);

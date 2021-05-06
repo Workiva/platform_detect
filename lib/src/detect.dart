@@ -25,15 +25,15 @@ import 'package:platform_detect/src/support.dart';
 /// Calling this method with no arguments will reset the library to its
 /// default behavior.
 void configurePlatformForTesting(
-    {Browser browser,
-    OperatingSystem operatingSystem,
-    List<Feature> features}) {
+    {Browser? browser,
+    OperatingSystem? operatingSystem,
+    List<Feature>? features}) {
   _browser = browser;
   _operatingSystem = operatingSystem;
   _features = features;
 }
 
-Browser _browser;
+Browser? _browser;
 
 /// Current browser info
 Browser get browser {
@@ -42,10 +42,10 @@ Browser get browser {
     _browser = Browser.getCurrentBrowser();
   }
 
-  return _browser;
+  return _browser!;
 }
 
-OperatingSystem _operatingSystem;
+OperatingSystem? _operatingSystem;
 
 /// Current operating system info
 OperatingSystem get operatingSystem {
@@ -54,13 +54,13 @@ OperatingSystem get operatingSystem {
     _operatingSystem = OperatingSystem.getCurrentOperatingSystem();
   }
 
-  return _operatingSystem;
+  return _operatingSystem!;
 }
 
-List<Feature> _features;
+List<Feature>? _features;
 
 /// Current browser feature support info
-List<Feature> get features => _features;
+List<Feature>? get features => _features;
 
 class _HtmlNavigator implements NavigatorProvider {
   @override
