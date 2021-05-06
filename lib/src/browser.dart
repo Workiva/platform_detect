@@ -127,12 +127,10 @@ class _Safari extends Browser {
 class _WKWebView extends Browser {
   _WKWebView() : super('WKWebView', _isWKWebView, _getVersion);
 
-  static bool _isWKWebView(NavigatorProvider navigator) {
-    // An web view running in an iOS app does not have a 'Version/X.X.X' string in the appVersion
-    var vendor = navigator.vendor;
-    return vendor.contains('Apple') &&
-        !navigator.appVersion.contains('Version');
-  }
+  static bool _isWKWebView(NavigatorProvider navigator) =>
+      // An web view running in an iOS app does not have a 'Version/X.X.X' string in the appVersion
+      navigator.vendor.contains('Apple') &&
+      !navigator.appVersion.contains('Version');
 
   static Version _getVersion(NavigatorProvider navigator) {
     Match match = RegExp(r'AppleWebKit/(\d+)\.(\d+)\.(\d+)')
