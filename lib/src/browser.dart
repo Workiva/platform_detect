@@ -21,41 +21,31 @@ class Browser {
 
   static Browser getCurrentBrowser() {
     return _knownBrowsers.firstWhere(
-        (browser) => browser._matchesNavigator!(navigator),
+        (browser) => browser.matchesNavigator(navigator),
         orElse: () => UnknownBrowser);
   }
 
   @visibleForTesting
   clearVersion() => _version = null;
 
-  static Browser UnknownBrowser = Browser('Unknown', null, null);
+  static Browser UnknownBrowser =
+      Browser('Unknown', (_) => false, (_) => Version(0, 0, 0));
 
-  Browser(this.name, bool matchesNavigator(NavigatorProvider navigator)?,
-      Version parseVersion(NavigatorProvider navigator)?,
-      {this.className})
-      : _matchesNavigator = matchesNavigator,
-        _parseVersion = parseVersion;
+  Browser(this.name, bool this.matchesNavigator(NavigatorProvider navigator),
+      Version this.parseVersion(NavigatorProvider navigator),
+      {this.className = ''});
 
   final String name;
 
   /// The CSS class value that should be used instead of lowercase [name] (optional).
-  final String? className;
-  final Function? _matchesNavigator;
-  final Function? _parseVersion;
+  final String className;
+  final Function matchesNavigator;
+  final Function parseVersion;
 
   Version? _version;
 
-  Version get version {
-    if (_version == null) {
-      if (_parseVersion != null) {
-        _version = _parseVersion!(Browser.navigator ?? TestNavigator());
-      } else {
-        _version = Version(0, 0, 0);
-      }
-    }
-
-    return _version!;
-  }
+  Version get version =>
+      _version ??= parseVersion(Browser.navigator ?? TestNavigator());
 
   static List<Browser> _knownBrowsers = [
     internetExplorer,
@@ -81,10 +71,8 @@ Browser wkWebView = _WKWebView();
 class _Chrome extends Browser {
   _Chrome() : super('Chrome', _isChrome, _getVersion);
 
-  static bool _isChrome(NavigatorProvider navigator) {
-    var vendor = navigator.vendor;
-    return vendor.contains('Google');
-  }
+  static bool _isChrome(NavigatorProvider navigator) =>
+      navigator.vendor.contains('Google');
 
   static Version _getVersion(NavigatorProvider navigator) {
     Match? match = RegExp(r"Chrome/(\d+)\.(\d+)\.(\d+)\.(\d+)\s")

@@ -21,8 +21,6 @@ void main() {
       fakeRootNode = DivElement();
     }
 
-    tearDown(() {});
-
     group('', () {
       setUp(() {
         sharedSetup();
@@ -72,6 +70,10 @@ void main() {
     // TODO: Set up saucelabs and run these tests on actual browsers on which we can assert whether
     // our baked-in feature detection is accurate
     group('should identify feature support:', () {
+      setUp(() {
+        sharedSetup();
+      });
+
       void verifyDistinctFeatureCssClasses(List<Feature> features) {
         String allCssClasses = fakeRootNode.classes.toString();
         List<String> featureCssClasses =
@@ -101,10 +103,6 @@ void main() {
         // 2. Ensure that there is only one
         verifyDistinctFeatureCssClasses(features);
       }
-
-      setUp(() {
-        sharedSetup();
-      });
 
       test('default features', () {
         decorateRootNodeWithPlatformClasses(

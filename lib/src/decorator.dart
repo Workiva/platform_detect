@@ -24,8 +24,9 @@ const String decorationCompleteClassName = 'pd--decorated';
 
 /// The CSS class that will be used to represent the current [browser].
 @visibleForTesting
-final String browserClassName =
-    browser.className ?? nameToClassName(browser.name);
+final String browserClassName = browser.className.isNotEmpty
+    ? browser.className
+    : nameToClassName(browser.name);
 
 /// The CSS class that will be used to represent the current [operatingSystem].
 @visibleForTesting
