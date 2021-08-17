@@ -45,6 +45,17 @@ const String wkWebViewAppVersionTestString =
 const String wkWebViewAppNameTestString = 'Netscape';
 const String wkWebViewVendorTestString = 'Apple Computer, Inc.';
 
+const String samsungBrowserUserAgentTestString =
+    'Mozilla/5.0 (Linux; Android 8.1.0; Land Rover Explore) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/14.2 Chrome/87.0.4280.141 Mobile Safari/537.36';
+const String samsungBrowserAppVersionTestString =
+    '5.0 (Linux; Android 8.1.0; Land Rover Explore) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/14.2 Chrome/87.0.4280.141 Mobile Safari/537.36';
+const String samsungBrowserAppVersionOnlyMajorTestString =
+    '5.0 (Linux; Android 8.1.0; Land Rover Explore) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/14 Chrome/87.0.4280.141 Mobile Safari/537.36';
+const String samsungBrowserAppVersionPatchTestString =
+    '5.0 (Linux; Android 8.1.0; Land Rover Explore) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/14.2.3 Chrome/87.0.4280.141 Mobile Safari/537.36';
+const String samsungBrowserAppNameTestString = 'Netscape';
+const String samsungBrowserVendorTestString = 'Google Inc.';
+
 TestNavigator testChrome({
   userAgent = chromeUserAgentTestString,
   appVersion = chromeAppVersionTestString,
@@ -115,6 +126,19 @@ TestNavigator testWkWebView({
   appVersion = wkWebViewAppVersionTestString,
   appName = wkWebViewAppNameTestString,
   vendor = wkWebViewVendorTestString,
+}) {
+  return TestNavigator()
+    ..userAgent = userAgent
+    ..appVersion = appVersion
+    ..appName = appName
+    ..vendor = vendor;
+}
+
+TestNavigator testSamsungBrowser({
+  userAgent = samsungBrowserUserAgentTestString,
+  appVersion = samsungBrowserAppVersionTestString,
+  appName = samsungBrowserAppNameTestString,
+  vendor = samsungBrowserVendorTestString,
 }) {
   return TestNavigator()
     ..userAgent = userAgent

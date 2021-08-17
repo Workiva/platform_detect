@@ -53,6 +53,7 @@ class Browser {
     safari,
     wkWebView,
     chrome,
+    samsungBrowser,
   ];
 
   bool get isChrome => this == chrome;
@@ -60,6 +61,7 @@ class Browser {
   bool get isSafari => this == safari;
   bool get isInternetExplorer => this == internetExplorer;
   bool get isWKWebView => this == wkWebView;
+  bool get isSamsungBrowser => this == samsungBrowser;
 }
 
 Browser chrome = _Chrome();
@@ -67,12 +69,14 @@ Browser firefox = _Firefox();
 Browser safari = _Safari();
 Browser internetExplorer = _InternetExplorer();
 Browser wkWebView = _WKWebView();
+Browser samsungBrowser = _SamsungBrowser();
 
 class _Chrome extends Browser {
   _Chrome() : super('Chrome', _isChrome, _getVersion);
 
   static bool _isChrome(NavigatorProvider navigator) =>
-      navigator.vendor.contains('Google');
+      navigator.vendor.contains('Google') &&
+      !_SamsungBrowser._isSamsungBrowser(navigator);
 
   static Version _getVersion(NavigatorProvider navigator) {
     Match? match = RegExp(r"Chrome/(\d+)\.(\d+)\.(\d+)\.(\d+)\s")
@@ -177,5 +181,26 @@ class _InternetExplorer extends Browser {
     }
 
     return Version(0, 0, 0);
+  }
+}
+
+class _SamsungBrowser extends Browser {
+  _SamsungBrowser() : super('SamsungBrowser', _isSamsungBrowser, _getVersion);
+  static bool _isSamsungBrowser(NavigatorProvider navigator) =>
+  navigator.appVersion.contains('SamsungBrowser');
+
+  static Version _getVersion(NavigatorProvider navigator) {
+    Match match = RegExp(r'SamsungBrowser/(\d+)(?:\.(\d+))?(?:\.(\d+))?')
+        .firstMatch(navigator.appVersion)!;
+    var major = int.parse(match.group(1)!);
+    var minor = 0;
+    if (match.group(2) != null) {
+      minor = int.parse(match.group(2)!);
+    }
+    var patch = 0;
+    if (match.group(3) != null) {
+      patch = int.parse(match.group(3)!);
+    }
+    return Version(major, minor, patch);
   }
 }
