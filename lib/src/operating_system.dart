@@ -20,17 +20,17 @@ class OperatingSystem {
 
   static OperatingSystem getCurrentOperatingSystem() {
     return _knownSystems.firstWhere(
-        (system) => system._matchesNavigator(navigator),
+        (system) => navigator != null && system._matchesNavigator(navigator!),
         orElse: () => UnknownOS);
   }
 
-  static OperatingSystem UnknownOS = OperatingSystem('Unknown', (n) => false);
+  static OperatingSystem UnknownOS = OperatingSystem('Unknown', (_) => false);
 
   final String name;
-  final Function _matchesNavigator;
+  final bool Function(NavigatorProvider) _matchesNavigator;
 
   OperatingSystem(
-      this.name, bool this._matchesNavigator(NavigatorProvider navigator));
+      this.name, this._matchesNavigator);
 
   static List<OperatingSystem> _knownSystems = [
     chrome,
@@ -40,11 +40,11 @@ class OperatingSystem {
     unix
   ];
 
-  get isLinux => this == linux;
-  get isMac => this == mac;
-  get isUnix => this == unix;
-  get isWindows => this == windows;
-  get isChromeOS => this == chrome;
+  bool get isLinux => this == linux;
+  bool get isMac => this == mac;
+  bool get isUnix => this == unix;
+  bool get isWindows => this == windows;
+  bool get isChromeOS => this == chrome;
 }
 
 OperatingSystem linux = OperatingSystem('Linux', (NavigatorProvider navigator) {

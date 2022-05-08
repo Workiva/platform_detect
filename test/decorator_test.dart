@@ -10,7 +10,7 @@ import 'package:platform_detect/src/support.dart';
 void main() {
   group('root node CSS class injection', () {
     late Element fakeRootNode;
-    late List calls;
+    late List<String> calls;
 
     void callback() {
       calls.add('callback');

@@ -33,7 +33,7 @@ const String isFirefoxCheckboxId = 'current-is-firefox';
 const String isSafariCheckboxId = 'current-is-safari';
 const String isIeCheckboxId = 'current-is-ie';
 
-main() {
+void main() {
   decorateRootNodeWithPlatformClasses();
 
   _parseCurrentBrowser();
