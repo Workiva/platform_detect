@@ -5,12 +5,12 @@ WORKDIR /build
 # grab source
 COPY . /build/
 
-# pub get
+# dart pub get
 ARG BUILD_ID
 ARG GIT_COMMIT
 ARG GIT_TAG
 ARG GIT_BRANCH
 
-RUN pub get
+RUN dart pub get
 
 FROM scratch
