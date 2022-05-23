@@ -10,3 +10,6 @@ doc/api/
 
 # JetBrains IDEs
 .idea/
+
+# Directory created by w_test_tools to hold test reports
+test-reports/
