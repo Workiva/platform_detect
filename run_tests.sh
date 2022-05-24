@@ -9,7 +9,7 @@ pub get
 
 pub run test --file-reporter=json:$filename.json || RESULT=1
 
-w_test_tools:xunit_parser -j "$filename.json" -t "$filename.xml"
+dart pub global run w_test_tools:xunit_parser -j "$filename.json" -t "$filename.xml"
 
 rm "$filename.json"
 
