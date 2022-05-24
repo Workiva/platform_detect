@@ -5,9 +5,9 @@ RESULT=0
 
 filename="test-reports/test_output"
 
-pub get
+dart pub get
 
-pub run test --file-reporter=json:$filename.json || RESULT=1
+dart test --file-reporter=json:$filename.json || RESULT=1
 
 dart pub global run w_test_tools:xunit_parser -j "$filename.json" -t "$filename.xml"
 
