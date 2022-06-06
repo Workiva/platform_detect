@@ -3,8 +3,8 @@ import 'dart:html';
 
 import 'package:test/test.dart';
 
-import 'package:platform_detect/platform_detect.dart';
 import 'package:platform_detect/src/decorator.dart';
+import 'package:platform_detect/src/detect.dart';
 import 'package:platform_detect/src/support.dart';
 
 void main() {
@@ -113,6 +113,7 @@ void main() {
 
       group('custom features provided by the consumer', () {
         Feature uniqueConsumerFeature =
+            // ignore: unnecessary_null_comparison
             Feature('canvas', CanvasElement().context2D != null);
         List<Feature> consumerFeaturesThatContainsNoDefaults = [
           uniqueConsumerFeature

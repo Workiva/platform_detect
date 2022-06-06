@@ -14,7 +14,7 @@
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:platform_detect/platform_detect.dart';
+import 'package:platform_detect/src/detect.dart';
 import 'package:platform_detect/src/support.dart';
 
 /// The CSS class that will be used to indicate that [decorateRootNodeWithPlatformClasses]
