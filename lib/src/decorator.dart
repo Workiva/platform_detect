@@ -140,7 +140,7 @@ void decorateRootNodeWithPlatformClasses(
     {List<Feature>? features,
     bool includeDefaults = true,
     Element? rootNode,
-    callback()?}) {
+    void Function()? callback}) {
   rootNode ??= document.documentElement;
 
   if (rootNode != null && !nodeHasBeenDecorated(rootNode)) {

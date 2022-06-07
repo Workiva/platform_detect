@@ -21,26 +21,25 @@ class Browser {
 
   static Browser getCurrentBrowser() {
     return _knownBrowsers.firstWhere(
-        (browser) => browser._matchesNavigator(navigator),
+        (browser) => navigator != null && browser._matchesNavigator(navigator!),
         orElse: () => UnknownBrowser);
   }
 
   @visibleForTesting
-  clearVersion() => _version = null;
+  void clearVersion() => _version = null;
 
   static Browser UnknownBrowser =
       Browser('Unknown', (_) => false, (_) => Version(0, 0, 0));
 
-  Browser(this.name, bool this._matchesNavigator(NavigatorProvider navigator),
-      Version this._parseVersion(NavigatorProvider navigator),
+  Browser(this.name, this._matchesNavigator, this._parseVersion,
       {this.className = ''});
 
   final String name;
 
   /// The CSS class value that should be used instead of lowercase [name] (optional).
   final String className;
-  final Function _matchesNavigator;
-  final Function _parseVersion;
+  final bool Function(NavigatorProvider) _matchesNavigator;
+  final Version Function(NavigatorProvider) _parseVersion;
 
   Version? _version;
 
