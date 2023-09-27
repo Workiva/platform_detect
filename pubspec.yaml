@@ -1,5 +1,5 @@
 name: platform_detect
-version: 2.0.11
+version: 2.0.12
 description: A lightweight library for detecting the running browser and OS
 homepage: https://github.com/Workiva/platform_detect
 documentation: https://www.dartdocs.org/documentation/platform_detect/latest
