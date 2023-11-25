@@ -24,6 +24,7 @@ void main() {
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, false);
+      expect(browser.isSamsungBrowser, false);
     });
 
     test('Fake Browser', () {
@@ -34,6 +35,7 @@ void main() {
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, false);
+      expect(browser.isSamsungBrowser, false);
     });
 
     test('Chrome', () {
@@ -45,6 +47,7 @@ void main() {
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, false);
+      expect(browser.isSamsungBrowser, false);
       expect(browser.version, Version(53, 0, 2785, build: '143'));
     });
 
@@ -57,6 +60,7 @@ void main() {
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, false);
+      expect(browser.isSamsungBrowser, false);
       expect(browser.version, Version(0, 0, 0));
     });
 
@@ -69,6 +73,7 @@ void main() {
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, true);
+      expect(browser.isSamsungBrowser, false);
       expect(browser.version, Version(11, 0, 0));
     });
 
@@ -81,6 +86,7 @@ void main() {
       expect(browser.isFirefox, true);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, false);
+      expect(browser.isSamsungBrowser, false);
       expect(browser.version, Version(48, 0, 0));
     });
 
@@ -98,6 +104,7 @@ void main() {
         expect(browser.isFirefox, false);
         expect(browser.isSafari, true);
         expect(browser.isInternetExplorer, false);
+        expect(browser.isSamsungBrowser, false);
         expect(browser.version, Version(9, 1, 3));
       });
 
@@ -113,6 +120,7 @@ void main() {
         expect(browser.isFirefox, false);
         expect(browser.isSafari, true);
         expect(browser.isInternetExplorer, false);
+        expect(browser.isSamsungBrowser, false);
         expect(browser.version, Version(10, 1, 0));
       });
 
@@ -128,6 +136,7 @@ void main() {
         expect(browser.isFirefox, false);
         expect(browser.isSafari, true);
         expect(browser.isInternetExplorer, false);
+        expect(browser.isSamsungBrowser, false);
         expect(browser.version, Version(11, 0, 0));
       });
     });
@@ -142,7 +151,54 @@ void main() {
       expect(browser.isSafari, false);
       expect(browser.isWKWebView, true);
       expect(browser.isInternetExplorer, false);
+      expect(browser.isSamsungBrowser, false);
       expect(browser.version, Version(601, 7, 8));
+    });
+
+    group('Samsung Internet Browser', () {
+      tearDown(() {
+        Browser.navigator = null;
+      });
+
+      test('major and minor version', () {
+        Browser.navigator = testSamsungBrowser();
+        browser = Browser.getCurrentBrowser();
+
+        expect(browser.name, 'SamsungBrowser');
+        expect(browser.isSamsungBrowser, true);
+        expect(browser.isChrome, false);
+        expect(browser.isFirefox, false);
+        expect(browser.isSafari, false);
+        expect(browser.isWKWebView, false);
+        expect(browser.isInternetExplorer, false);
+        expect(browser.version, Version(14, 2, 0));
+      });
+      test('only major version', () {
+        Browser.navigator = testSamsungBrowser(appVersion: samsungBrowserAppVersionOnlyMajorTestString);
+        browser = Browser.getCurrentBrowser();
+
+        expect(browser.name, 'SamsungBrowser');
+        expect(browser.isSamsungBrowser, true);
+        expect(browser.isChrome, false);
+        expect(browser.isFirefox, false);
+        expect(browser.isSafari, false);
+        expect(browser.isWKWebView, false);
+        expect(browser.isInternetExplorer, false);
+        expect(browser.version, Version(14, 0, 0));
+      });
+      test('major, minor and patch version', () {
+        Browser.navigator = testSamsungBrowser(appVersion: samsungBrowserAppVersionPatchTestString);
+        browser = Browser.getCurrentBrowser();
+
+        expect(browser.name, 'SamsungBrowser');
+        expect(browser.isSamsungBrowser, true);
+        expect(browser.isChrome, false);
+        expect(browser.isFirefox, false);
+        expect(browser.isSafari, false);
+        expect(browser.isWKWebView, false);
+        expect(browser.isInternetExplorer, false);
+        expect(browser.version, Version(14, 2, 3));
+      });
     });
   });
 }
