@@ -1,5 +1,5 @@
 @TestOn('browser')
-import 'dart:html';
+import 'package:web/web.dart';
 
 import 'package:test/test.dart';
 
@@ -18,7 +18,7 @@ void main() {
 
     void sharedSetup() {
       calls = [];
-      fakeRootNode = DivElement();
+      fakeRootNode = document.createElement('div');
     }
 
     group('', () {
@@ -39,19 +39,19 @@ void main() {
       });
 
       test('should identify the operating system', () {
-        expect(fakeRootNode.classes,
+        expect(domTokenListToListString(fakeRootNode.classList),
             contains('os-${nameToClassName(operatingSystem.name)}'));
       });
 
       group('should identify the browser', () {
         test('', () {
-          expect(fakeRootNode.classes,
+          expect(domTokenListToListString(fakeRootNode.classList),
               contains('ua-${nameToClassName(browser.name)}'));
         });
 
         test('major version', () {
           expect(
-              fakeRootNode.classes,
+              domTokenListToListString(fakeRootNode.classList),
               contains(
                   'ua-${nameToClassName(browser.name)}${browser.version.major}'));
         });
@@ -60,7 +60,7 @@ void main() {
           for (var i = nextVersion;
               i < nextVersion + decoratedNextVersionCount;
               i++) {
-            expect(fakeRootNode.classes,
+            expect(domTokenListToListString(fakeRootNode.classList),
                 contains('ua-lt-${nameToClassName(browser.name)}$i'));
           }
         });
@@ -75,7 +75,7 @@ void main() {
       });
 
       void verifyDistinctFeatureCssClasses(List<Feature> features) {
-        String allCssClasses = fakeRootNode.classes.toString();
+        String allCssClasses = fakeRootNode.className;
         List<String> featureCssClasses =
             getFeatureSupportClasses(features).split(' ');
 
@@ -95,7 +95,7 @@ void main() {
         for (var i = 0; i < features.length; i++) {
           // 1. Ensure that its there
           expect(
-              fakeRootNode.classes,
+              domTokenListToListString(fakeRootNode.classList),
               contains(matches(RegExp(
                   '($featureSupportNegationClassPrefix)*${features[i].name}'))));
         }
@@ -112,9 +112,12 @@ void main() {
       });
 
       group('custom features provided by the consumer', () {
-        Feature uniqueConsumerFeature =
-            // ignore: unnecessary_null_comparison
-            Feature('canvas', CanvasElement().context2D != null);
+        Feature uniqueConsumerFeature = Feature(
+            'canvas',
+            (document.createElement('canvas') as HTMLCanvasElement)
+                    // ignore: unnecessary_null_comparison
+                    .context2D !=
+                null);
         List<Feature> consumerFeaturesThatContainsNoDefaults = [
           uniqueConsumerFeature
         ];
