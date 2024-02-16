@@ -1,6 +1,8 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member
 
-import 'dart:html';
+import 'dart:js_util';
+
+import 'package:web/web.dart';
 import 'package:platform_detect/platform_detect.dart';
 import 'package:platform_detect/src/decorator.dart';
 
@@ -38,7 +40,8 @@ void main() {
 
   _parseCurrentBrowser();
   _parseDecoratorValues();
-  ButtonElement evaluate = querySelector('#evaluate-test') as ButtonElement;
+  HTMLButtonElement evaluate =
+      querySelector('#evaluate-test') as HTMLButtonElement;
   evaluate.onClick.listen((_) => _parseTestValues());
 }
 
@@ -54,32 +57,32 @@ void _parseCurrentBrowser() {
   document.querySelector('#$currentUserAgentId')!.text =
       window.navigator.userAgent;
 
-  CheckboxInputElement isChrome =
-      document.querySelector('#$isChromeCheckboxId') as CheckboxInputElement;
+  HTMLInputElement isChrome =
+      document.querySelector('#$isChromeCheckboxId') as HTMLInputElement;
   isChrome.checked = browser.isChrome;
 
-  CheckboxInputElement isFirefox =
-      document.querySelector('#$isFirefoxCheckboxId') as CheckboxInputElement;
+  HTMLInputElement isFirefox =
+      document.querySelector('#$isFirefoxCheckboxId') as HTMLInputElement;
   isFirefox.checked = browser.isFirefox;
 
-  CheckboxInputElement isSafari =
-      document.querySelector('#$isSafariCheckboxId') as CheckboxInputElement;
+  HTMLInputElement isSafari =
+      document.querySelector('#$isSafariCheckboxId') as HTMLInputElement;
   isSafari.checked = browser.isSafari;
 
-  CheckboxInputElement isInternetExplorer =
-      document.querySelector('#$isIeCheckboxId') as CheckboxInputElement;
+  HTMLInputElement isInternetExplorer =
+      document.querySelector('#$isIeCheckboxId') as HTMLInputElement;
   isInternetExplorer.checked = browser.isInternetExplorer;
 }
 
 void _parseTestValues() {
-  InputElement testVendorInput =
-      querySelector('#$testVendorId') as InputElement;
-  InputElement testAppVersionInput =
-      querySelector('#$testAppVersionId') as InputElement;
-  InputElement testAppNameInput =
-      querySelector('#$testAppNameId') as InputElement;
-  InputElement testUserAgentInput =
-      querySelector('#$testUserAgentId') as InputElement;
+  HTMLInputElement testVendorInput =
+      querySelector('#$testVendorId') as HTMLInputElement;
+  HTMLInputElement testAppVersionInput =
+      querySelector('#$testAppVersionId') as HTMLInputElement;
+  HTMLInputElement testAppNameInput =
+      querySelector('#$testAppNameId') as HTMLInputElement;
+  HTMLInputElement testUserAgentInput =
+      querySelector('#$testUserAgentId') as HTMLInputElement;
 
   var navigator = TestNavigator();
   navigator.vendor = testVendorInput.value!.trim();
@@ -97,7 +100,8 @@ void _parseTestValues() {
 }
 
 void _parseDecoratorValues() {
-  CssClassSet htmlElementClasses = document.documentElement!.classes;
+  List<String> htmlElementClasses =
+      domTokenListToListString(document.documentElement!.classList);
 
   String osDecorators = htmlElementClasses
       .toList()
