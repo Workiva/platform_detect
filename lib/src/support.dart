@@ -31,7 +31,12 @@ class Feature {
   final bool isSupported;
 
   @override
-  bool operator ==(dynamic other) => other is Feature && other.name == name;
+  bool operator ==(Object other) {
+    if (other is Feature) {
+      return other.name == name;
+    }
+    return false;
+  }
 
   @override
   int get hashCode => name.hashCode;
