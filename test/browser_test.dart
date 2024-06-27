@@ -95,6 +95,7 @@ void main() {
 
         expect(browser.name, 'Safari');
         expect(browser.isChrome, false);
+        expect(browser.isEdgeChrome, isFalse);
         expect(browser.isFirefox, false);
         expect(browser.isSafari, true);
         expect(browser.isInternetExplorer, false);
@@ -110,6 +111,7 @@ void main() {
 
         expect(browser.name, 'Safari');
         expect(browser.isChrome, false);
+        expect(browser.isEdgeChrome, isFalse);
         expect(browser.isFirefox, false);
         expect(browser.isSafari, true);
         expect(browser.isInternetExplorer, false);
@@ -125,6 +127,7 @@ void main() {
 
         expect(browser.name, 'Safari');
         expect(browser.isChrome, false);
+        expect(browser.isEdgeChrome, isFalse);
         expect(browser.isFirefox, false);
         expect(browser.isSafari, true);
         expect(browser.isInternetExplorer, false);
@@ -138,6 +141,7 @@ void main() {
 
       expect(browser.name, 'WKWebView');
       expect(browser.isChrome, false);
+      expect(browser.isEdgeChrome, isFalse);
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isWKWebView, true);
