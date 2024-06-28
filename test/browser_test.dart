@@ -21,6 +21,7 @@ void main() {
       expect(browser.name, Browser.UnknownBrowser.name);
       expect(browser.version, Browser.UnknownBrowser.version);
       expect(browser.isChrome, false);
+      expect(browser.isEdgeChrome, isFalse);
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, false);
@@ -31,6 +32,7 @@ void main() {
       expect(browser.name, 'Fake');
       expect(browser.version, Version(1, 1, 0));
       expect(browser.isChrome, false);
+      expect(browser.isEdgeChrome, isFalse);
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, false);
@@ -42,10 +44,33 @@ void main() {
 
       expect(browser.name, 'Chrome');
       expect(browser.isChrome, true);
+      expect(browser.isEdgeChrome, isFalse);
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, false);
       expect(browser.version, Version(53, 0, 2785, build: '143'));
+    });
+
+    test('Edge Chrome', () {
+      Browser.navigator = testChromeEdge();
+      browser = Browser.getCurrentBrowser();
+
+      expect(browser.name, 'Edge');
+      expect([browser.isChrome, browser.isEdgeChrome], everyElement(isTrue),
+          reason:
+              'Blink-based Edge browser should be detected as both Chrome and Edge '
+              'since feature support is based on Chrome, but should identify as Edge '
+              'for logging purposes');
+      expect(browser.isFirefox, isFalse);
+      expect(browser.isSafari, isFalse);
+      expect(browser.isInternetExplorer, isFalse);
+      expect(browser.version, Version(91, 0, 864, build: '59'));
+
+      expect(browser, isA<EdgeChrome>());
+      expect(
+        (browser as EdgeChrome).chromeVersion,
+        Version(91, 0, 4472, build: '124'),
+      );
     });
 
     test('Chromeless', () {
@@ -54,6 +79,7 @@ void main() {
 
       expect(browser.name, 'Chrome');
       expect(browser.isChrome, true);
+      expect(browser.isEdgeChrome, isFalse);
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, false);
@@ -66,10 +92,24 @@ void main() {
 
       expect(browser.name, 'Internet Explorer');
       expect(browser.isChrome, false);
+      expect(browser.isEdgeChrome, isFalse);
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, true);
       expect(browser.version, Version(11, 0, 0));
+    });
+
+    test('Internet Explorer (Edge)', () {
+      Browser.navigator = testInternetExplorerEdge();
+      browser = Browser.getCurrentBrowser();
+
+      expect(browser.name, 'Internet Explorer');
+      expect(browser.isChrome, isFalse);
+      expect(browser.isEdgeChrome, isFalse);
+      expect(browser.isFirefox, isFalse);
+      expect(browser.isSafari, isFalse);
+      expect(browser.isInternetExplorer, isTrue);
+      expect(browser.version, Version(12, 10136, 0));
     });
 
     test('Firefox', () {
@@ -78,6 +118,7 @@ void main() {
 
       expect(browser.name, 'Firefox');
       expect(browser.isChrome, false);
+      expect(browser.isEdgeChrome, isFalse);
       expect(browser.isFirefox, true);
       expect(browser.isSafari, false);
       expect(browser.isInternetExplorer, false);
@@ -95,6 +136,7 @@ void main() {
 
         expect(browser.name, 'Safari');
         expect(browser.isChrome, false);
+        expect(browser.isEdgeChrome, isFalse);
         expect(browser.isFirefox, false);
         expect(browser.isSafari, true);
         expect(browser.isInternetExplorer, false);
@@ -110,6 +152,7 @@ void main() {
 
         expect(browser.name, 'Safari');
         expect(browser.isChrome, false);
+        expect(browser.isEdgeChrome, isFalse);
         expect(browser.isFirefox, false);
         expect(browser.isSafari, true);
         expect(browser.isInternetExplorer, false);
@@ -125,6 +168,7 @@ void main() {
 
         expect(browser.name, 'Safari');
         expect(browser.isChrome, false);
+        expect(browser.isEdgeChrome, isFalse);
         expect(browser.isFirefox, false);
         expect(browser.isSafari, true);
         expect(browser.isInternetExplorer, false);
@@ -138,6 +182,7 @@ void main() {
 
       expect(browser.name, 'WKWebView');
       expect(browser.isChrome, false);
+      expect(browser.isEdgeChrome, isFalse);
       expect(browser.isFirefox, false);
       expect(browser.isSafari, false);
       expect(browser.isWKWebView, true);

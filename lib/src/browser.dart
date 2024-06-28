@@ -51,10 +51,14 @@ class Browser {
     firefox,
     safari,
     wkWebView,
-    chrome,
+    edgeChrome,
+    chrome
   ];
 
-  bool get isChrome => this == chrome;
+  bool get isChrome => this == chrome || this == edgeChrome;
+
+  /// Whether the browser is [edgeChrome].
+  bool get isEdgeChrome => this == edgeChrome;
   bool get isFirefox => this == firefox;
   bool get isSafari => this == safari;
   bool get isInternetExplorer => this == internetExplorer;
@@ -67,14 +71,27 @@ Browser safari = _Safari();
 Browser internetExplorer = _InternetExplorer();
 Browser wkWebView = _WKWebView();
 
+/// The Edge browser from Microsoft that is based on the Blink rendering engine.
+///
+/// * For the purposes of detecting capabilities / features - this browser should
+/// be treated as a Blink/Chrome browser.
+///   *(Truthy for both [Browser.isChrome] and [Browser.isEdgeChrome])*
+/// * For the purposes of system logging, it should be detected as a standalone
+/// product with its own version.
+///
+/// > **NOTE** In addition to the Edge `version`, the underlying Blink engine
+/// version can be accessed via `chromeVersion`.
+EdgeChrome edgeChrome = EdgeChrome._();
+
 class _Chrome extends Browser {
   _Chrome() : super('Chrome', _isChrome, _getVersion);
 
   static bool _isChrome(NavigatorProvider navigator) =>
       navigator.vendor.contains('Google');
 
-  static Version _getVersion(NavigatorProvider navigator) {
-    Match? match = RegExp(r"Chrome/(\d+)\.(\d+)\.(\d+)\.(\d+)\s")
+  static Version _getVersion(NavigatorProvider navigator,
+      {String namePrefix = 'Chrome'}) {
+    Match? match = RegExp(namePrefix + r"/(\d+)\.(\d+)\.(\d+)\.(\d+)")
         .firstMatch(navigator.appVersion);
     if (match != null) {
       var major = int.parse(match.group(1)!);
@@ -86,6 +103,34 @@ class _Chrome extends Browser {
       return Version(0, 0, 0);
     }
   }
+}
+
+/// See: [edgeChrome]
+@visibleForTesting
+@internal
+class EdgeChrome extends Browser {
+  EdgeChrome._()
+      : super(
+          // name should be `Edge` (essentially for logging purposes only)
+          'Edge',
+          _isEdge,
+          _getVersion,
+          // className should remain chrome since the rendering engine is the same
+          className: 'chrome',
+        );
+
+  /// See: <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent#microsoft_edge_ua_string>
+  static bool _isEdge(NavigatorProvider navigator) =>
+      navigator.userAgent.contains('Edg/');
+
+  static Version _getVersion(NavigatorProvider navigator) =>
+      _Chrome._getVersion(Browser.navigator ?? TestNavigator(),
+          namePrefix: 'Edg');
+
+  /// The underlying Blink rendering engine version that this version of Edge uses.
+  Version get chromeVersion => _chromeVersion ??=
+      _Chrome._getVersion(Browser.navigator ?? TestNavigator());
+  Version? _chromeVersion;
 }
 
 class _Firefox extends Browser {

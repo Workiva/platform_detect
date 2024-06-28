@@ -23,6 +23,17 @@ const String ieAppVersionTestString =
 const String ieAppNameTestString = 'Netscape';
 const String ieVendorTestString = 'Microsoft';
 
+const String ieEdgeUserAgentTestString =
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10136';
+const String ieEdgeAppVersionTestString =
+    '5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10136';
+
+/// See: <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent#microsoft_edge_ua_string>
+const String chromeEdgeUserAgentTestString =
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Edg/91.0.864.59';
+const String chromeEdgeAppVersionTestString =
+    '5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Edg/91.0.864.59';
+
 const String safariUserAgentTestString =
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.8 (KHTML, like Gecko) Version/9.1.3 Safari/601.7.8';
 const String safariAppVersionTestString =
@@ -57,6 +68,11 @@ TestNavigator testChrome({
     ..appName = appName
     ..vendor = vendor;
 }
+
+TestNavigator testChromeEdge() => testChrome(
+      userAgent: chromeEdgeUserAgentTestString,
+      appVersion: chromeEdgeAppVersionTestString,
+    );
 
 TestNavigator testChromeless({
   String userAgent = chromelessUserAgentTestString,
@@ -96,6 +112,11 @@ TestNavigator testInternetExplorer({
     ..appName = appName
     ..vendor = vendor;
 }
+
+TestNavigator testInternetExplorerEdge() => testInternetExplorer(
+      userAgent: ieEdgeUserAgentTestString,
+      appVersion: ieEdgeAppVersionTestString,
+    );
 
 TestNavigator testSafari({
   String userAgent = safariUserAgentTestString,
